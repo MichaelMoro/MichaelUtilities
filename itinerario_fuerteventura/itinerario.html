@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0ea5e9">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Fuerteventura 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <button class="icon-btn" id="themeToggle" aria-label="Cambia tema">
+                    <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="header-content">
+                <h1 class="header-title">Fuerteventura</h1>
+                <p class="header-dates">11 — 18 Agosto 2026</p>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-input"
+                    placeholder="Cerca luoghi, attività, ristoranti..."
+                    autocomplete="off"
+                >
+                <button class="search-clear" id="searchClear" aria-label="Cancella ricerca">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <!-- Day Selector -->
+        <nav class="day-nav" id="dayNav">
+            <div class="day-nav-scroll">
+                <button class="day-chip active" data-day="all">
+                    <span class="day-chip-label">Tutti</span>
+                </button>
+                <button class="day-chip" data-day="11">
+                    <span class="day-chip-num">11</span>
+                    <span class="day-chip-label">Lun</span>
+                </button>
+                <button class="day-chip" data-day="12">
+                    <span class="day-chip-num">12</span>
+                    <span class="day-chip-label">Mar</span>
+                </button>
+                <button class="day-chip" data-day="13">
+                    <span class="day-chip-num">13</span>
+                    <span class="day-chip-label">Mer</span>
+                </button>
+                <button class="day-chip" data-day="14">
+                    <span class="day-chip-num">14</span>
+                    <span class="day-chip-label">Gio</span>
+                </button>
+                <button class="day-chip" data-day="15">
+                    <span class="day-chip-num">15</span>
+                    <span class="day-chip-label">Ven</span>
+                </button>
+                <button class="day-chip" data-day="16">
+                    <span class="day-chip-num">16</span>
+                    <span class="day-chip-label">Sab</span>
+                </button>
+                <button class="day-chip" data-day="17">
+                    <span class="day-chip-num">17</span>
+                    <span class="day-chip-label">Dom</span>
+                </button>
+                <button class="day-chip" data-day="18">
+                    <span class="day-chip-num">18</span>
+                    <span class="day-chip-label">Lun</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+
+            <!-- Day 11 -->
+            <section class="day-section" data-day="11">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">11</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Arrivo + Corralejo Nord</h2>
+                        <p class="day-header-subtitle">Pomeriggio leggero vicino a casa</p>
+                    </div>
+                    <span class="zone-pill zone-nord">Nord</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">☀️</span>
+                            <span class="time-text">Pomeriggio</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Parco Naturale delle Dune di Corralejo</h3>
+                                <p class="activity-desc">Dune, camminata, foto</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Popcorn Beach</h3>
+                                <p class="activity-desc">10 min dalle dune — curiosa, veloce, perfetta per un primo bagno</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌙</span>
+                            <span class="time-text">Sera</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Passeggiata nel centro di Corralejo</h3>
+                            </div>
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Cena</div>
+                                <h3 class="activity-title">La Pulperia o Gilda</h3>
+                                <p class="activity-desc">Economico oppure tapas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 12 -->
+            <section class="day-section" data-day="12">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">12</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Cotillo + Surf + Spiagge Ovest</h2>
+                        <p class="day-header-subtitle">Costa ovest, tutta vicina</p>
+                    </div>
+                    <span class="zone-pill zone-ovest">Ovest</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌅</span>
+                            <span class="time-text">Mattina</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Calderón Hondo</h3>
+                                <p class="activity-desc">Cratere, trekking 1h — fresco e panoramico</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">☀️</span>
+                            <span class="time-text">Pomeriggio</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-highlight">
+                                <div class="activity-tag tag-todo">Da fare</div>
+                                <h3 class="activity-title">🏄 El Cotillo Beach — SURF</h3>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Playa de la Escalera</h3>
+                                <p class="activity-desc">10 min — selvaggia, scale, onde</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Playa del Águila o Piedra Playa</h3>
+                                <p class="activity-desc">Se hai ancora energia — vicinissime</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌙</span>
+                            <span class="time-text">Sera</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Cena</div>
+                                <h3 class="activity-title">La Vacca Azzurra</h3>
+                                <p class="activity-desc">Pesce top</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 13 -->
+            <section class="day-section" data-day="13">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">13</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Isola di Lobos</h2>
+                        <p class="day-header-subtitle">Giornata fissa, senza guida</p>
+                    </div>
+                    <span class="zone-pill zone-special">Speciale</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌊</span>
+                            <span class="time-text">Intera giornata</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-highlight">
+                                <h3 class="activity-title">Traghetto da Corralejo</h3>
+                                <p class="activity-desc">Trekking al faro, snorkeling alla Concha, relax totale</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Pranzo</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Pranzo</div>
+                                <h3 class="activity-title">Chiringuito Lobos Antoñito El Farero</h3>
+                                <p class="activity-desc">Miglior paella dell'isola</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌙</span>
+                            <span class="time-text">Sera</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Rientro a Corralejo</h3>
+                            </div>
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Cena</div>
+                                <h3 class="activity-title">Restaurante Patai Beach o Bar Toro Beach</h3>
+                                <p class="activity-desc">Paella</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 14 -->
+            <section class="day-section" data-day="14">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">14</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Ajuy + Betancuria</h2>
+                        <p class="day-header-subtitle">Storia + natura + spiagge nere</p>
+                    </div>
+                    <span class="zone-pill zone-centro">Centro</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌅</span>
+                            <span class="time-text">Mattina</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Playa de Ajuy</h3>
+                                <p class="activity-desc">Spiaggia nera</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Grotte di Ajuy</h3>
+                                <p class="activity-desc">10 min di camminata</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">☀️</span>
+                            <span class="time-text">Pomeriggio</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Betancuria</h3>
+                                <p class="activity-desc">Borgo bianco, molto caratteristico</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Molino de Tefía</h3>
+                                <p class="activity-desc">Sulla strada di ritorno — foto, 15 min</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌙</span>
+                            <span class="time-text">Sera</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Cena</div>
+                                <h3 class="activity-title">El Moral o La Villa</h3>
+                                <p class="activity-desc">Carne, Villaverde</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 15 -->
+            <section class="day-section" data-day="15">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">15</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Sud: Sotavento + Oasis + Faro</h2>
+                        <p class="day-header-subtitle">Tutto nella stessa zona sud-est</p>
+                    </div>
+                    <span class="zone-pill zone-sud">Sud</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌅</span>
+                            <span class="time-text">Mattina</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-highlight">
+                                <h3 class="activity-title">Playa de Sotavento</h3>
+                                <p class="activity-desc">Acqua bassa, lagune, vento moderato</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">☀️</span>
+                            <span class="time-text">Pomeriggio</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-highlight">
+                                <div class="activity-tag tag-todo">Da fare</div>
+                                <h3 class="activity-title">Fauna selvatica dell'Oasis Park</h3>
+                                <p class="activity-desc">3h</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Faro de la Entallada</h3>
+                                <p class="activity-desc">Tramonto spettacolare</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌙</span>
+                            <span class="time-text">Sera</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Cena</div>
+                                <h3 class="activity-title">San Borondón</h3>
+                                <p class="activity-desc">Costa Calma, carne</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 16 -->
+            <section class="day-section" data-day="16">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">16</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Morro Jable + Matorral + Esquinzo</h2>
+                        <p class="day-header-subtitle">Giornata mare + tapas</p>
+                    </div>
+                    <span class="zone-pill zone-sud">Sud</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌅</span>
+                            <span class="time-text">Mattina</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Playa del Matorral</h3>
+                                <p class="activity-desc">Lunga, tranquilla</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Playa Esquinzo-Butihondo</h3>
+                                <p class="activity-desc">Più selvaggia</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">☀️</span>
+                            <span class="time-text">Pomeriggio</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Morro Jable</h3>
+                                <p class="activity-desc">Passeggiata, porto</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌙</span>
+                            <span class="time-text">Sera</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Cena</div>
+                                <h3 class="activity-title">La Bodega de Jandia</h3>
+                                <p class="activity-desc">Tapas top</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 17 -->
+            <section class="day-section" data-day="17">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">17</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Nord Relax + Extra</h2>
+                        <p class="day-header-subtitle">Ultimo giorno pieno</p>
+                    </div>
+                    <span class="zone-pill zone-nord">Nord</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🏖️</span>
+                            <span class="time-text">Opzione A — Relax</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Corralejo</h3>
+                                <p class="activity-desc">Spiagge vicine: Waikiki, Flag Beach</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Shopping, cocktail vista mare</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🚗</span>
+                            <span class="time-text">Opzione B — Attività</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Buggy nelle dune di Corralejo</h3>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Ritorno a Cotillo</h3>
+                                <p class="activity-desc">Per un ultimo bagno</p>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Ripasso a Popcorn Beach</h3>
+                                <p class="activity-desc">Se ti è piaciuta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🌙</span>
+                            <span class="time-text">Sera</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card activity-food">
+                                <div class="activity-tag">Cena finale</div>
+                                <h3 class="activity-title">Vista Lobos o Uga Uga</h3>
+                                <p class="activity-desc">Vista mare oppure pizza</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 18 -->
+            <section class="day-section" data-day="18">
+                <div class="day-header-card">
+                    <div class="day-badge">
+                        <span class="day-badge-num">18</span>
+                        <span class="day-badge-month">AGO</span>
+                    </div>
+                    <div class="day-header-info">
+                        <h2 class="day-header-title">Partenza</h2>
+                        <p class="day-header-subtitle">Mattina libera</p>
+                    </div>
+                    <span class="zone-pill zone-nord">Nord</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">☕</span>
+                            <span class="time-text">Mattina</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity-card">
+                                <h3 class="activity-title">Colazione a Corralejo</h3>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Passeggiata sul lungomare</h3>
+                            </div>
+                            <div class="activity-card">
+                                <h3 class="activity-title">Ultime foto alle dune</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Zone Summary -->
+            <section class="zone-summary" id="zoneSummary">
+                <h2 class="zone-summary-title">Riepilogo Zone</h2>
+                <p class="zone-summary-subtitle">Per evitare troppa guida</p>
+                <div class="zone-grid">
+                    <div class="zone-card">
+                        <span class="zone-pill zone-nord">Nord</span>
+                        <p>Corralejo, Popcorn, Cotillo, Calderón Hondo, Lobos</p>
+                    </div>
+                    <div class="zone-card">
+                        <span class="zone-pill zone-ovest">Ovest</span>
+                        <p>Ajuy, Betancuria</p>
+                    </div>
+                    <div class="zone-card">
+                        <span class="zone-pill zone-sud">Sud-Est</span>
+                        <p>Sotavento, Oasis, Faro Entallada</p>
+                    </div>
+                    <div class="zone-card">
+                        <span class="zone-pill zone-sud">Sud-Ovest</span>
+                        <p>Morro Jable, Matorral, Esquinzo</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore di Squadre</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Tab 1: Generatore di Squadre -->
+        <div id="participantsTab">
+            <h1>Generatore di Squadre</h1>
+            <div id="participantsLabel">
+                <label for="numParticipants">Numero di partecipanti (max 20):</label>
+            </div>
+            <input type="number" id="numParticipants" min="2" max="20">
+            <button id="impostaBtn">Imposta</button>
+        </div>
+
+        <!-- Sezione per inserire i nomi -->
+        <div id="participantsInputSection" class="hidden">
+            <h2>Inserisci i nomi dei partecipanti</h2>
+        </div>
+		
+
+        <!-- Sezione Squadre -->
+        <div id="teamsSection" class="hidden">
+            <h2>Squadra Rossa</h2>
+            <ul id="redTeam"></ul>
+            <h2>Squadra Blu</h2>
+            <ul id="blueTeam"></ul>
+        </div>
+
+		<div id="loadingSpinner" class="loader hidden"></div>
+
+        <!-- Bottoni -->
+        <div id="buttonsSection">
+            <button id="generaBtn" class="hidden">Genera Squadre</button>
+            <button id="azzeraBtn" class="hidden">Azzera</button>
+            <button id="rigeneraBtn" class="hidden">Rigenera</button>
+            <button id="azzeraAllBtn" class="hidden">Azzera Tutti</button>
+        </div>
+		<p id="ricalcoliCounter" class="small-text hidden">Ricalcoli: <span id="ricalcoliValue">0</span></p>
+
+    </div>
+    
+    <script src="script.js"></script>
+	
+</body>
+</html>

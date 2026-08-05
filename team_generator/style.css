@@ -1,0 +1,237 @@
+/* Reset del margine e padding di base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #F8F9FA;
+  color: #2D3748;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  color: #4A6FA5;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 24px;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #2D3748;
+}
+
+label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+input[type="number"], input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 15px;
+  background-color: #4A6FA5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #355d8c;
+}
+
+.hidden {
+  display: none;
+}
+
+#redTeam, #blueTeam {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;  /* Permette di andare a capo se necessario */
+  gap: 10px; /* Spaziatura tra i partecipanti */
+  justify-content: space-between;
+}
+
+#redTeam li, #blueTeam li {
+  display: flex;
+  justify-content: space-between; /* Aggiunto per separare il nome dalla "C" */
+  background-color: #fff;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-basis: 48%; /* 2 elementi per riga su desktop e su mobile */
+}
+
+#redTeam li {
+  background-color: #E74C3C;
+  color: white;
+}
+
+#blueTeam li {
+  background-color: #3498DB;
+  color: white;
+}
+
+#redTeam li.first, #blueTeam li.first {
+  font-weight: bold;
+}
+
+#redTeam li .captain, #blueTeam li .captain {
+  font-size: 16px;
+  background-color: #F39C12;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-left: 10px;
+  align-self: center; /* Aggiunto per allineare verticalmente la "C" */
+}
+
+.tab {
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+  }
+
+  input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  h1, h2 {
+    font-size: 20px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  /* Modifica per visualizzare i partecipanti in 2 colonne anche su schermi più piccoli */
+  #redTeam, #blueTeam {
+    flex-wrap: wrap;  /* Manteniamo il wrapping per forzare due colonne */
+  }
+
+  #redTeam li, #blueTeam li {
+    flex-basis: 48%;  /* Due elementi per riga anche su mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 18px;
+  }
+
+  .container {
+    padding: 10px;
+    margin: 10px;
+  }
+}
+
+/* Animazione della rotellina di caricamento */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader {
+  border: 4px solid #f3f3f3; /* Grigio chiaro */
+  border-top: 4px solid #3498db; /* Colore del bordo superiore */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* Nascondere inizialmente gli elementi */
+#redTeam li, #blueTeam li {
+  display: none; /* Inizialmente nascosto */
+  background-color: #fff;
+  padding: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Impostiamo l'opacità a 0 per renderli invisibili */
+  transition: opacity 0.5s ease-in-out;
+}
+
+#redTeam li.show, #blueTeam li.show {
+  display: block; /* Diventano visibili */
+  opacity: 1; /* L'opacità va a 1 per renderli visibili */
+}
+
+#redTeam li.first, #blueTeam li.first {
+  font-weight: bold;
+}
+
+#redTeam li .captain, #blueTeam li .captain {
+  font-size: 16px;
+  background-color: #F39C12;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-left: 10px;
+  align-self: center; /* Aggiunto per allineare verticalmente la "C" */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.small-text {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-top: 10px;
+}
