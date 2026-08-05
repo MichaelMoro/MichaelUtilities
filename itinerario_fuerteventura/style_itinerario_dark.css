@@ -175,36 +175,6 @@ body.dark-mode .day-card__title {
   color: #e8e3db;
 }
 
-body.dark-mode .zone-nord {
-  color: #34d399;
-  background: rgba(52, 211, 153, 0.15);
-  border-color: #34d399;
-}
-
-body.dark-mode .zone-ovest {
-  color: #f5a962;
-  background: rgba(217, 125, 43, 0.15);
-  border-color: #f5a962;
-}
-
-body.dark-mode .zone-sud {
-  color: #f87171;
-  background: rgba(248, 113, 113, 0.15);
-  border-color: #f87171;
-}
-
-body.dark-mode .zone-centro {
-  color: #a78bfa;
-  background: rgba(167, 139, 250, 0.15);
-  border-color: #a78bfa;
-}
-
-body.dark-mode .zone-special {
-  color: #22d3ee;
-  background: rgba(34, 211, 238, 0.15);
-  border-color: #22d3ee;
-}
-
 body.dark-mode .time-text {
   color: #4db8c4;
 }
@@ -258,6 +228,30 @@ body.dark-mode .day-card__why strong {
 body.dark-mode .trip-footer {
   color: #8a7f73;
   border-top-color: #3d3731;
+}
+
+body.dark-mode .fixed-footer {
+  background: #2b2621;
+  border-top-color: #3d3731;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .fixed-footer__button {
+  background: #1a1816;
+  border-color: #3d3731;
+  color: #e8e3db;
+}
+
+body.dark-mode .fixed-footer__button:hover {
+  background: rgba(77, 184, 196, 0.15);
+  border-color: #4db8c4;
+  color: #4db8c4;
+}
+
+body.dark-mode .fixed-footer__button.active {
+  background: #1d818a;
+  border-color: #1d818a;
+  color: white;
 }
 
 body.dark-mode .dark-mode-toggle {

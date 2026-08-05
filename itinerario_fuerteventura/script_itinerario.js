@@ -1,11 +1,13 @@
 /**
  * Fuerteventura Trip Log - SuperDesign JavaScript
  * Clean, simple, mobile-friendly interactions
+ * Works on both itinerary and restaurants pages
  */
 
 (function() {
     'use strict';
 
+    // Elements that may or may not exist on all pages
     const dayNav = document.getElementById('dayNav');
     const dayChips = document.querySelectorAll('.day-chip');
     const dayCards = document.querySelectorAll('.day-card');
@@ -14,15 +16,26 @@
     const searchResults = document.getElementById('searchResults');
     const darkModeToggle = document.getElementById('darkModeToggle');
     const darkModeStyles = document.getElementById('darkModeStyles');
+    const footerButtons = document.querySelectorAll('.fixed-footer__button');
 
     let currentDay = 'all';
     let searchIndex = [];
 
     function init() {
-        buildSearchIndex();
-        setupEventListeners();
-        checkUrlHash();
         loadDarkModePreference();
+        
+        // Only initialize itinerary-specific features if they exist
+        if (dayNav && dayChips.length > 0) {
+            buildSearchIndex();
+            setupEventListeners();
+            checkUrlHash();
+        } else {
+            // For pages without day navigation, just setup basic event listeners
+            setupBasicEventListeners();
+        }
+        
+        // Setup footer button active states
+        setupFooterButtons();
     }
 
     function loadDarkModePreference() {
@@ -77,10 +90,36 @@
 
         searchInput.addEventListener('keydown', handleSearchKeyboard);
 
-        darkModeToggle.addEventListener('click', toggleDarkMode);
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+        }
 
         // Prevent zoom on mobile
         preventMobileZoom();
+    }
+
+    function setupBasicEventListeners() {
+        // Setup only dark mode toggle for pages without day navigation
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+        }
+        
+        // Prevent zoom on mobile
+        preventMobileZoom();
+    }
+
+    function setupFooterButtons() {
+        // Set active state based on current page
+        const currentPage = window.location.pathname.split('/').pop();
+        
+        footerButtons.forEach(button => {
+            const href = button.getAttribute('href');
+            if (href === currentPage) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
     }
 
     function preventMobileZoom() {
