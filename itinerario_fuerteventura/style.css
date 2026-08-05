@@ -246,6 +246,10 @@ body {
     justify-content: center;
     width: 28px;
     height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    max-width: 28px;
+    max-height: 28px;
     background: #4285f4;
     border-radius: var(--radius-sm);
     color: white;
@@ -263,6 +267,11 @@ body {
 .maps-link svg {
     width: 16px;
     height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+    flex-shrink: 0;
 }
 
 .activity-title-row {
