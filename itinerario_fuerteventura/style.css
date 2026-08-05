@@ -217,6 +217,66 @@ body {
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
+.accommodation-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.accommodation-icon {
+    font-size: 1.1em;
+}
+
+.accommodation-text {
+    color: white;
+}
+
+/* Maps Link Icon */
+.maps-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #4285f4;
+    border-radius: var(--radius-sm);
+    color: white;
+    text-decoration: none;
+    margin-left: var(--space-2);
+    transition: var(--transition-base);
+    flex-shrink: 0;
+}
+
+.maps-link:hover {
+    background: #1a73e8;
+    transform: scale(1.1);
+}
+
+.maps-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+.activity-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+}
+
+.activity-title-row .activity-title {
+    margin-bottom: 0;
+    flex: 1;
+}
+
 /* ============================================
    SEARCH
    ============================================ */
