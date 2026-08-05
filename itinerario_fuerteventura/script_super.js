@@ -12,6 +12,8 @@
     const searchInput = document.getElementById('searchInput');
     const searchClear = document.getElementById('searchClear');
     const searchResults = document.getElementById('searchResults');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeStyles = document.getElementById('darkModeStyles');
 
     let currentDay = 'all';
     let searchIndex = [];
@@ -20,6 +22,34 @@
         buildSearchIndex();
         setupEventListeners();
         checkUrlHash();
+        loadDarkModePreference();
+    }
+
+    function loadDarkModePreference() {
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            enableDarkMode();
+        }
+    }
+
+    function enableDarkMode() {
+        document.body.classList.add('dark-mode');
+        darkModeStyles.disabled = false;
+        localStorage.setItem('darkMode', 'true');
+    }
+
+    function disableDarkMode() {
+        document.body.classList.remove('dark-mode');
+        darkModeStyles.disabled = true;
+        localStorage.setItem('darkMode', 'false');
+    }
+
+    function toggleDarkMode() {
+        if (document.body.classList.contains('dark-mode')) {
+            disableDarkMode();
+        } else {
+            enableDarkMode();
+        }
     }
 
     function setupEventListeners() {
@@ -46,6 +76,8 @@
         });
 
         searchInput.addEventListener('keydown', handleSearchKeyboard);
+
+        darkModeToggle.addEventListener('click', toggleDarkMode);
     }
 
     function handleDaySelect(chip) {

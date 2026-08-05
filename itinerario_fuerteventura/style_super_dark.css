@@ -1,0 +1,283 @@
+/* ============================================================
+   FUERTEVENTURA TRIP LOG — Dark Mode
+   Dark color palette for comfortable night viewing
+   ============================================================ */
+
+body.dark-mode {
+  background:
+    radial-gradient(1200px 600px at 90% -10%, rgba(217, 125, 43, 0.08) 0%, transparent 60%),
+    radial-gradient(1000px 500px at -10% 10%, rgba(29, 129, 138, 0.12) 0%, transparent 55%),
+    #1a1816;
+  color: #e8e3db;
+}
+
+body.dark-mode a {
+  color: #4db8c4;
+}
+
+body.dark-mode a:hover {
+  color: #6dd4df;
+}
+
+body.dark-mode ::selection {
+  background: #d97d2b;
+  color: #1a1816;
+}
+
+body.dark-mode .trip {
+  background: #1a1816;
+}
+
+body.dark-mode .trip-header::before {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+body.dark-mode .trip-header__eyebrow {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e8e3db;
+}
+
+body.dark-mode .trip-header__title {
+  color: white;
+}
+
+body.dark-mode .trip-header__meta {
+  color: #e8e3db;
+}
+
+body.dark-mode .trip-header__meta strong {
+  color: white;
+}
+
+body.dark-mode .search-container {
+  background: #2b2621;
+  border-color: #3d3731;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .search-input {
+  background: #1a1816;
+  border-color: #3d3731;
+  color: #e8e3db;
+}
+
+body.dark-mode .search-input::placeholder {
+  color: #8a7f73;
+}
+
+body.dark-mode .search-input:focus {
+  border-color: #4db8c4;
+  box-shadow: 0 0 0 3px rgba(77, 184, 196, 0.15);
+  background: #2b2621;
+}
+
+body.dark-mode .search-icon {
+  color: #8a7f73;
+}
+
+body.dark-mode .search-clear {
+  color: #8a7f73;
+}
+
+body.dark-mode .search-clear:hover {
+  background: #3d3731;
+  color: #e8e3db;
+}
+
+body.dark-mode .search-results {
+  background: #2b2621;
+  border-color: #3d3731;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 16px 32px -12px rgba(0,0,0,0.6);
+}
+
+body.dark-mode .search-result-item {
+  border-bottom-color: #3d3731;
+}
+
+body.dark-mode .search-result-item:hover,
+body.dark-mode .search-result-item:focus {
+  background: #1a1816;
+}
+
+body.dark-mode .search-result-day {
+  background: #1d818a;
+  color: #e8e3db;
+}
+
+body.dark-mode .search-result-title {
+  color: #e8e3db;
+}
+
+body.dark-mode .search-result-title mark {
+  background: rgba(217, 125, 43, 0.25);
+  color: #f5a962;
+}
+
+body.dark-mode .search-result-meta {
+  color: #8a7f73;
+}
+
+body.dark-mode .search-no-results {
+  color: #8a7f73;
+}
+
+body.dark-mode .day-nav {
+  background: #2b2621;
+  border-color: #3d3731;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .day-chip {
+  background: #1a1816;
+  border-color: #3d3731;
+  color: #e8e3db;
+}
+
+body.dark-mode .day-chip:hover {
+  border-color: #4db8c4;
+  background: rgba(77, 184, 196, 0.15);
+}
+
+body.dark-mode .day-chip.active {
+  background: #1d818a;
+  border-color: #1d818a;
+  color: white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .day-card {
+  background: #2b2621;
+  border-color: #3d3731;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .day-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 16px 32px -12px rgba(0,0,0,0.7);
+}
+
+body.dark-mode .day-card::before {
+  background: #1d818a;
+  color: #e8e3db;
+  border-color: #1a1816;
+  box-shadow: 0 0 0 2px #4db8c4;
+}
+
+body.dark-mode .day-card__header {
+  border-bottom-color: #3d3731;
+  background: linear-gradient(180deg, rgba(29, 129, 138, 0.15) 0%, transparent 100%);
+}
+
+body.dark-mode .day-card__date {
+  color: #4db8c4;
+}
+
+body.dark-mode .day-card__title {
+  color: #e8e3db;
+}
+
+body.dark-mode .zone-nord {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.15);
+  border-color: #34d399;
+}
+
+body.dark-mode .zone-ovest {
+  color: #f5a962;
+  background: rgba(217, 125, 43, 0.15);
+  border-color: #f5a962;
+}
+
+body.dark-mode .zone-sud {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.15);
+  border-color: #f87171;
+}
+
+body.dark-mode .zone-centro {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.15);
+  border-color: #a78bfa;
+}
+
+body.dark-mode .zone-special {
+  color: #22d3ee;
+  background: rgba(34, 211, 238, 0.15);
+  border-color: #22d3ee;
+}
+
+body.dark-mode .time-text {
+  color: #4db8c4;
+}
+
+body.dark-mode .timeline-items {
+  border-left-color: #3d3731;
+}
+
+body.dark-mode .activity {
+  border-left-color: #4db8c4;
+}
+
+body.dark-mode .activity:hover {
+  border-left-color: #6dd4df;
+}
+
+body.dark-mode .activity__title {
+  color: #e8e3db;
+}
+
+body.dark-mode .activity__reason {
+  color: #a89d8f;
+}
+
+body.dark-mode .activity__alt {
+  background: rgba(217, 125, 43, 0.15);
+  color: #e8e3db;
+}
+
+body.dark-mode .activity__alt strong {
+  color: #f5a962;
+}
+
+body.dark-mode .maps-link {
+  background: #4285f4;
+}
+
+body.dark-mode .maps-link:hover {
+  background: #5a95f5;
+}
+
+body.dark-mode .day-card__why {
+  color: #a89d8f;
+  border-top-color: #3d3731;
+}
+
+body.dark-mode .day-card__why strong {
+  color: #4db8c4;
+}
+
+body.dark-mode .trip-footer {
+  color: #8a7f73;
+  border-top-color: #3d3731;
+}
+
+body.dark-mode .dark-mode-toggle {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-contrast: high) {
+  body.dark-mode {
+    --shadow-card: none;
+    --shadow-hover: none;
+  }
+
+  body.dark-mode .day-card,
+  body.dark-mode .search-container,
+  body.dark-mode .day-nav {
+    border-width: 2px;
+  }
+}
