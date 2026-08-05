@@ -78,6 +78,43 @@
         searchInput.addEventListener('keydown', handleSearchKeyboard);
 
         darkModeToggle.addEventListener('click', toggleDarkMode);
+
+        // Prevent zoom on mobile
+        preventMobileZoom();
+    }
+
+    function preventMobileZoom() {
+        // Prevent pinch zoom
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent double tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+
+        // Reset zoom if somehow zoomed
+        document.addEventListener('touchend', resetZoom);
+        document.addEventListener('touchcancel', resetZoom);
+
+        // Also reset on orientation change
+        window.addEventListener('orientationchange', resetZoom);
+    }
+
+    function resetZoom() {
+        // Force viewport reset
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        }
     }
 
     function handleDaySelect(chip) {

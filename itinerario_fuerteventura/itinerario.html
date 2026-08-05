@@ -2,43 +2,46 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#0ea5e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0F5C63">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>Fuerteventura 2026</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Fuerteventura 2026 — Trip Log</title>
+    <link rel="stylesheet" href="style_itinerario.css">
+    <link rel="stylesheet" href="style_itinerario_dark.css" id="darkModeStyles" disabled>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- App Container -->
-    <div class="app">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-top">
-                <button class="icon-btn" id="themeToggle" aria-label="Cambia tema">
-                    <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"/>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                    <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                </button>
+    <div class="trip">
+        <header class="trip-header">
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <div class="trip-header__eyebrow">
+                <span>🏝️</span>
+                <span>11—18 Agosto 2026</span>
             </div>
-            <div class="header-content">
-                <h1 class="header-title">Fuerteventura</h1>
-                <p class="header-dates">11 — 18 Agosto 2026</p>
-                <div class="accommodation-badge">
-                    <span class="accommodation-icon">🏠</span>
-                    <span class="accommodation-text">Puskas Apartman</span>
-                </div>
+            <h1 class="trip-header__title">Fuerteventura </h1>
+            <div class="trip-header__meta">
+                <span><strong>🏠 Alloggio:</strong> Puskas Apartman</span>
             </div>
         </header>
 
-        <!-- Search Bar -->
         <div class="search-container">
             <div class="search-box">
                 <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -61,7 +64,6 @@
             <div class="search-results" id="searchResults"></div>
         </div>
 
-        <!-- Day Selector -->
         <nav class="day-nav" id="dayNav">
             <div class="day-nav-scroll">
                 <button class="day-chip active" data-day="all">
@@ -102,23 +104,13 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
-        <main class="main">
-
-            <!-- Day 11 -->
-            <section class="day-section" data-day="11">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">11</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Arrivo + Corralejo Nord</h2>
-                        <p class="day-header-subtitle">Pomeriggio leggero vicino a casa</p>
-                    </div>
-                    <span class="zone-pill zone-nord">Nord</span>
+        <main class="timeline">
+            <article class="day-card" data-day="11">
+                <div class="day-card__header">
+                    <span class="day-card__date">Martedì 11 Agosto</span>
+                    <h2 class="day-card__title">Arrivo + Corralejo Nord</h2>
+                    <span class="day-card__zone zone-nord">Nord</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -126,60 +118,59 @@
                             <span class="time-text">Pomeriggio</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Parco Naturale delle Dune di Corralejo</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Parco Naturale delle Dune di Corralejo
                                     <a href="https://maps.app.goo.gl/nZHt8QHEtHr1HtaL6" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Dune, camminata, foto</p>
+                                </h3>
+                                <p class="activity__reason">Dune, camminata, foto</p>
                             </div>
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Popcorn Beach</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Popcorn Beach
                                     <a href="https://maps.app.goo.gl/W3HLDJbUSLVAy6Yx5" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">25 min dalle dune — curiosa, veloce, perfetta per un primo bagno</p>
+                                </h3>
+                                <p class="activity__reason">25 min dalle dune — curiosa, veloce, perfetta per un primo bagno</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
                             <span class="time-icon">🌙</span>
                             <span class="time-text">Sera</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <h3 class="activity-title">Passeggiata nel centro di Corralejo</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">Passeggiata nel centro di Corralejo</h3>
                             </div>
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Cena</div>
-                                <h3 class="activity-title">La Pulperia o Gilda</h3>
-                                <p class="activity-desc">Economico oppure tapas</p>
+                        </div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Cena</span>
+                        </div>
+                        <div class="timeline-items">
+                            <div class="activity">
+                                <h3 class="activity__title">La Pulperia o Gilda</h3>
+                                <p class="activity__reason">Economico oppure tapas</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <p class="day-card__why">Pomeriggio leggero vicino a casa</p>
+            </article>
 
-            <!-- Day 12 -->
-            <section class="day-section" data-day="12">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">12</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Cotillo + Surf + Spiagge Ovest</h2>
-                        <p class="day-header-subtitle">Costa ovest, tutta vicina</p>
-                    </div>
-                    <span class="zone-pill zone-ovest">Ovest</span>
+            <article class="day-card" data-day="12">
+                <div class="day-card__header">
+                    <span class="day-card__date">Mercoledì 12 Agosto</span>
+                    <h2 class="day-card__title">Cotillo + Surf + Spiagge Ovest</h2>
+                    <span class="day-card__zone zone-ovest">Ovest</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -187,79 +178,66 @@
                             <span class="time-text">Mattina</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Calderón Hondo</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Calderón Hondo
                                     <a href="https://maps.app.goo.gl/9QscBATZ7pm4Rywh8" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Cratere, trekking 1h — fresco e panoramico</p>
+                                </h3>
+                                <p class="activity__reason">Cratere, trekking 1h — fresco e panoramico</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
                             <span class="time-icon">☀️</span>
                             <span class="time-text">Pomeriggio</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-highlight">
-                                <div class="activity-tag tag-todo">Da fare</div>
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">🏄 El Cotillo Beach — SURF</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    El Cotillo Beach SURF
                                     <a href="https://maps.app.goo.gl/i4pDHHJN1zdLA8udA" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
+                                </h3>
+                                <p class="activity__reason">Da fare assolutamente!</p>
                             </div>
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Playa de la Escalera</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Playa de la Escalera
                                     <a href="https://maps.app.goo.gl/S3U3PTNmxtXpqvV6A" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">10 min — selvaggia, scale, onde</p>
-                            </div>
-                            <div class="activity-card">
-                                <h3 class="activity-title">Playa del Águila o Piedra Playa</h3>
-                                <p class="activity-desc">Se hai ancora energia — vicinissime</p>
+                                </h3>
+                                <p class="activity__reason">10 min — selvaggia, scale, onde</p>
+                                <p class="activity__alt"><strong>Alternative:</strong> Playa del Águila o Piedra Playa se hai ancora energia</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
-                            <span class="time-icon">🌙</span>
-                            <span class="time-text">Sera</span>
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Cena</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Cena</div>
-                                <h3 class="activity-title">La Vacca Azzurra</h3>
-                                <p class="activity-desc">Pesce top</p>
+                            <div class="activity">
+                                <h3 class="activity__title">La Vacca Azzurra</h3>
+                                <p class="activity__reason">Pesce top</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <p class="day-card__why">Costa ovest, tutta vicina</p>
+            </article>
 
-            <!-- Day 13 -->
-            <section class="day-section" data-day="13">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">13</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Isola di Lobos</h2>
-                        <p class="day-header-subtitle">Giornata fissa, senza guida</p>
-                    </div>
-                    <span class="zone-pill zone-special">Speciale</span>
+            <article class="day-card" data-day="13">
+                <div class="day-card__header">
+                    <span class="day-card__date">Giovedì 13 Agosto</span>
+                    <h2 class="day-card__title">Isola di Lobos</h2>
+                    <span class="day-card__zone zone-special">Speciale</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -267,65 +245,51 @@
                             <span class="time-text">Intera giornata</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-highlight">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Traghetto da Corralejo</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Traghetto da Corralejo
                                     <a href="https://maps.app.goo.gl/9vYeThSuqupdQG7d7" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Trekking al faro, snorkeling alla Concha, relax totale</p>
+                                </h3>
+                                <p class="activity__reason">Trekking al faro, snorkeling alla Concha, relax totale</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
                             <span class="time-icon">🍽️</span>
                             <span class="time-text">Pranzo</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Pranzo</div>
-                                <h3 class="activity-title">Chiringuito Lobos Antoñito El Farero</h3>
-                                <p class="activity-desc">Miglior paella dell'isola</p>
+                            <div class="activity">
+                                <h3 class="activity__title">Chiringuito Lobos Antoñito El Farero</h3>
+                                <p class="activity__reason">Miglior paella dell'isola</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
-                            <span class="time-icon">🌙</span>
-                            <span class="time-text">Sera</span>
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Cena</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <h3 class="activity-title">Rientro a Corralejo</h3>
-                            </div>
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Cena</div>
-                                <h3 class="activity-title">Restaurante Patai Beach o Bar Toro Beach</h3>
-                                <p class="activity-desc">Paella</p>
+                            <div class="activity">
+                                <h3 class="activity__title">Restaurante Patai Beach o Bar Toro Beach</h3>
+                                <p class="activity__reason">Paella</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <p class="day-card__why">Giornata fissa, senza guida</p>
+            </article>
 
-            <!-- Day 14 -->
-            <section class="day-section" data-day="14">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">14</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Ajuy + Betancuria</h2>
-                        <p class="day-header-subtitle">Storia + natura + spiagge nere</p>
-                    </div>
-                    <span class="zone-pill zone-centro">Centro</span>
+            <article class="day-card" data-day="14">
+                <div class="day-card__header">
+                    <span class="day-card__date">Venerdì 14 Agosto</span>
+                    <h2 class="day-card__title">Ajuy + Betancuria</h2>
+                    <span class="day-card__zone zone-centro">Centro</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -333,84 +297,74 @@
                             <span class="time-text">Mattina</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Playa de Ajuy</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Playa de Ajuy
                                     <a href="https://maps.app.goo.gl/sPooTjLS6PENnsAt8" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Spiaggia nera</p>
+                                </h3>
+                                <p class="activity__reason">Spiaggia nera</p>
                             </div>
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Grotte di Ajuy</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Grotte di Ajuy
                                     <a href="https://maps.app.goo.gl/pjscDf84YZ2aH2t38" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">10 min di camminata</p>
+                                </h3>
+                                <p class="activity__reason">10 min di camminata</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
                             <span class="time-icon">☀️</span>
                             <span class="time-text">Pomeriggio</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Betancuria</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Betancuria
                                     <a href="https://maps.app.goo.gl/xuWXt1UUdsXFErG17" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Borgo bianco, molto caratteristico</p>
+                                </h3>
+                                <p class="activity__reason">Borgo bianco, molto caratteristico</p>
                             </div>
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Molino de Tefía</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Molino de Tefía
                                     <a href="https://maps.app.goo.gl/oeZ46dNymWLp28p98" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Sulla strada di ritorno — foto, 15 min</p>
+                                </h3>
+                                <p class="activity__reason">Sulla strada di ritorno — foto, 15 min</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
-                            <span class="time-icon">🌙</span>
-                            <span class="time-text">Sera</span>
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Cena</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Cena</div>
-                                <h3 class="activity-title">El Moral o La Villa</h3>
-                                <p class="activity-desc">Carne, Villaverde</p>
+                            <div class="activity">
+                                <h3 class="activity__title">El Moral o La Villa</h3>
+                                <p class="activity__reason">Carne, Villaverde</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <p class="day-card__why">Storia + natura + spiagge nere</p>
+            </article>
 
-            <!-- Day 15 -->
-            <section class="day-section" data-day="15">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">15</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Sud: Oasis + Sotavento + Faro</h2>
-                        <p class="day-header-subtitle">Tutto nella stessa zona sud-est</p>
-                    </div>
-                    <span class="zone-pill zone-sud">Sud</span>
+            <article class="day-card" data-day="15">
+                <div class="day-card__header">
+                    <span class="day-card__date">Sabato 15 Agosto</span>
+                    <h2 class="day-card__title">Sud: Oasis + Sotavento + Faro</h2>
+                    <span class="day-card__zone zone-sud">Sud</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -418,76 +372,65 @@
                             <span class="time-text">Mattina</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-highlight">
-                                <div class="activity-tag tag-todo">Da fare</div>
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Fauna selvatica dell'Oasis Park</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Fauna selvatica dell'Oasis Park
                                     <a href="https://maps.app.goo.gl/2TER3fVd5rZx9Zmh7" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">3h</p>
+                                </h3>
+                                <p class="activity__reason">3h — da fare assolutamente</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
                             <span class="time-icon">☀️</span>
                             <span class="time-text">Pomeriggio</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-highlight">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Playa de Sotavento</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Playa de Sotavento
                                     <a href="https://maps.app.goo.gl/TFqMtZGULx9FLu4TA" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Acqua bassa, lagune, vento moderato</p>
+                                </h3>
+                                <p class="activity__reason">Acqua bassa, lagune, vento moderato</p>
                             </div>
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Faro de la Entallada</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Faro de la Entallada
                                     <a href="https://maps.app.goo.gl/wjzZyQBXVyb5WTRR9" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Tramonto spettacolare</p>
+                                </h3>
+                                <p class="activity__reason">Tramonto spettacolare</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
-                            <span class="time-icon">🌙</span>
-                            <span class="time-text">Sera</span>
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Cena</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Cena</div>
-                                <h3 class="activity-title">San Borondón</h3>
-                                <p class="activity-desc">Costa Calma, carne</p>
+                            <div class="activity">
+                                <h3 class="activity__title">San Borondón</h3>
+                                <p class="activity__reason">Costa Calma, carne</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <p class="day-card__why">Tutto nella stessa zona sud-est</p>
+            </article>
 
-            <!-- Day 16 -->
-            <section class="day-section" data-day="16">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">16</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Morro Jable + Matorral + Esquinzo</h2>
-                        <p class="day-header-subtitle">Giornata mare + tapas</p>
-                    </div>
-                    <span class="zone-pill zone-sud">Sud</span>
+            <article class="day-card" data-day="16">
+                <div class="day-card__header">
+                    <span class="day-card__date">Domenica 16 Agosto</span>
+                    <h2 class="day-card__title">Morro Jable + Matorral + Esquinzo</h2>
+                    <span class="day-card__zone zone-sud">Sud</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -495,84 +438,74 @@
                             <span class="time-text">Mattina</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Playa del Matorral</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Playa del Matorral
                                     <a href="https://maps.app.goo.gl/VG1p6K321EprvuaD9" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Lunga, tranquilla</p>
+                                </h3>
+                                <p class="activity__reason">Lunga, tranquilla</p>
                             </div>
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Playa Esquinzo-Butihondo</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Playa Esquinzo-Butihondo
                                     <a href="https://maps.app.goo.gl/knvzo1K5o8dvoqiq6" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Più selvaggia</p>
+                                </h3>
+                                <p class="activity__reason">Più selvaggia</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
                             <span class="time-icon">☀️</span>
                             <span class="time-text">Pomeriggio</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Morro Jable</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Morro Jable
                                     <a href="https://maps.app.goo.gl/R3PMyCxjYo3UkCwLA" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Passeggiata, porto</p>
+                                </h3>
+                                <p class="activity__reason">Passeggiata, porto</p>
                             </div>
-                            <div class="activity-card">
-                                <div class="activity-title-row">
-                                    <h3 class="activity-title">Playa de Cofete</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">
+                                    Playa de Cofete
                                     <a href="https://maps.app.goo.gl/WKDATwhy3d5CYfsP8" target="_blank" class="maps-link" aria-label="Apri in Google Maps">
                                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                                     </a>
-                                </div>
-                                <p class="activity-desc">Spiaggia selvaggia e spettacolare</p>
+                                </h3>
+                                <p class="activity__reason">Spiaggia selvaggia e spettacolare</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
-                            <span class="time-icon">🌙</span>
-                            <span class="time-text">Sera</span>
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Cena</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Cena</div>
-                                <h3 class="activity-title">La Bodega de Jandia</h3>
-                                <p class="activity-desc">Tapas top</p>
+                            <div class="activity">
+                                <h3 class="activity__title">La Bodega de Jandia</h3>
+                                <p class="activity__reason">Tapas top</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <p class="day-card__why">Giornata mare + tapas</p>
+            </article>
 
-            <!-- Day 17 -->
-            <section class="day-section" data-day="17">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">17</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Nord Relax + Extra</h2>
-                        <p class="day-header-subtitle">Ultimo giorno pieno</p>
-                    </div>
-                    <span class="zone-pill zone-nord">Nord</span>
+            <article class="day-card" data-day="17">
+                <div class="day-card__header">
+                    <span class="day-card__date">Lunedì 17 Agosto</span>
+                    <h2 class="day-card__title">Nord Relax + Extra</h2>
+                    <span class="day-card__zone zone-nord">Nord</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -580,66 +513,46 @@
                             <span class="time-text">Opzione A — Relax</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <h3 class="activity-title">Corralejo</h3>
-                                <p class="activity-desc">Spiagge vicine: Waikiki, Flag Beach</p>
-                            </div>
-                            <div class="activity-card">
-                                <h3 class="activity-title">Shopping, cocktail vista mare</h3>
+                            <div class="activity">
+                                <h3 class="activity__title">Corralejo</h3>
+                                <p class="activity__reason">Spiagge vicine: Waikiki, Flag Beach. Shopping, cocktail vista mare</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
                             <span class="time-icon">🚗</span>
                             <span class="time-text">Opzione B — Attività</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <h3 class="activity-title">Buggy nelle dune di Corralejo</h3>
-                            </div>
-                            <div class="activity-card">
-                                <h3 class="activity-title">Ritorno a Cotillo</h3>
-                                <p class="activity-desc">Per un ultimo bagno</p>
-                            </div>
-                            <div class="activity-card">
-                                <h3 class="activity-title">Ripasso a Popcorn Beach</h3>
-                                <p class="activity-desc">Se ti è piaciuta</p>
+                            <div class="activity">
+                                <h3 class="activity__title">Buggy nelle dune di Corralejo</h3>
+                                <p class="activity__reason">Ritorno a Cotillo per un ultimo bagno o ripasso a Popcorn Beach</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="timeline-block">
                         <div class="timeline-time">
-                            <span class="time-icon">🌙</span>
-                            <span class="time-text">Sera</span>
+                            <span class="time-icon">🍽️</span>
+                            <span class="time-text">Cena</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card activity-food">
-                                <div class="activity-tag">Cena finale</div>
-                                <h3 class="activity-title">Vista Lobos o Uga Uga</h3>
-                                <p class="activity-desc">Vista mare oppure pizza</p>
+                            <div class="activity">
+                                <h3 class="activity__title">Vista Lobos o Uga Uga</h3>
+                                <p class="activity__reason">Vista mare oppure pizza</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <p class="day-card__why">Ultimo giorno pieno</p>
+            </article>
 
-            <!-- Day 18 -->
-            <section class="day-section" data-day="18">
-                <div class="day-header-card">
-                    <div class="day-badge">
-                        <span class="day-badge-num">18</span>
-                        <span class="day-badge-month">AGO</span>
-                    </div>
-                    <div class="day-header-info">
-                        <h2 class="day-header-title">Partenza</h2>
-                        <p class="day-header-subtitle">Rientro verso l'aeroporto</p>
-                    </div>
-                    <span class="zone-pill zone-nord">Nord</span>
+            <article class="day-card" data-day="18">
+                <div class="day-card__header">
+                    <span class="day-card__date">Martedì 18 Agosto</span>
+                    <h2 class="day-card__title">Partenza</h2>
+                    <span class="day-card__zone zone-nord">Nord</span>
                 </div>
-
                 <div class="timeline">
                     <div class="timeline-block">
                         <div class="timeline-time">
@@ -647,18 +560,22 @@
                             <span class="time-text">Rientro</span>
                         </div>
                         <div class="timeline-items">
-                            <div class="activity-card">
-                                <h3 class="activity-title">Rientro verso l'aeroporto</h3>
-                                <p class="activity-desc">Check-out e partenza</p>
+                            <div class="activity">
+                                <h3 class="activity__title">Rientro verso l'aeroporto</h3>
+                                <p class="activity__reason">Check-out e partenza</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-
+                <p class="day-card__why">Tempo di salutare l'isola con i ricordi di una settimana indimenticabile</p>
+            </article>
         </main>
+
+        <footer class="trip-footer">
+            <p>Michael & Alice! 🌊☀️🏝️❤️</p>
+        </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script_itinerario.js"></script>
 </body>
 </html>
