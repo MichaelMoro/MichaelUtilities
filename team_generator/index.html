@@ -3,49 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generatore di Squadre</title>
+    <title>Team Generator Pro</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Tab 1: Generatore di Squadre -->
-        <div id="participantsTab">
-            <h1>Generatore di Squadre</h1>
-            <div id="participantsLabel">
-                <label for="numParticipants">Numero di partecipanti (max 20):</label>
+    <!-- Background animato -->
+    <div class="bg-animation">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">⚔️</span>
+                <h1>Team Generator Pro</h1>
             </div>
-            <input type="number" id="numParticipants" min="2" max="20">
-            <button id="impostaBtn">Imposta</button>
+            <a href="../index.html" class="back-btn">← Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Setup iniziale -->
+        <div id="participantsTab" class="setup-card">
+            <div class="card-header">
+                <h2>⚡ Inizia la Battaglia</h2>
+                <p class="subtitle">Quanti guerrieri scenderanno in campo?</p>
+            </div>
+            <div class="input-group">
+                <label for="numParticipants">Numero di partecipanti</label>
+                <input type="number" id="numParticipants" min="2" max="20" placeholder="2-20">
+            </div>
+            <button id="impostaBtn" class="btn btn-primary">
+                <span>Continua</span>
+                <span class="btn-icon">→</span>
+            </button>
         </div>
 
-        <!-- Sezione per inserire i nomi -->
-        <div id="participantsInputSection" class="hidden">
-            <h2>Inserisci i nomi dei partecipanti</h2>
+        <!-- Sezione inserimento nomi -->
+        <div id="participantsInputSection" class="hidden names-section">
+            <div class="card-header">
+                <h2>📝 Inserisci i Nomi</h2>
+                <p class="subtitle">Chi farà parte delle squadre?</p>
+            </div>
+            <div id="namesGrid" class="names-grid"></div>
+            <button id="generaBtn" class="btn btn-primary">
+                <span>Genera Squadre</span>
+                <span class="btn-icon">🎲</span>
+            </button>
         </div>
-		
+
+        <!-- Loading -->
+        <div id="loadingSection" class="hidden loading-section">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p class="loading-text">Bilanciando le squadre...</p>
+            </div>
+        </div>
 
         <!-- Sezione Squadre -->
-        <div id="teamsSection" class="hidden">
-            <h2>Squadra Rossa</h2>
-            <ul id="redTeam"></ul>
-            <h2>Squadra Blu</h2>
-            <ul id="blueTeam"></ul>
+        <div id="teamsSection" class="hidden teams-section">
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Partecipanti</span>
+                    <span class="stat-value" id="totalPlayers">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Ricalcoli</span>
+                    <span class="stat-value" id="ricalcoliValue">0</span>
+                </div>
+            </div>
+
+            <div class="teams-grid">
+                <!-- Squadra Rossa -->
+                <div class="team-card team-red">
+                    <div class="team-header">
+                        <div class="team-badge">
+                            <span class="team-icon">🔴</span>
+                            <h3>Team Red</h3>
+                        </div>
+                        <div class="team-count" id="redCount">0</div>
+                    </div>
+                    <ul id="redTeam" class="team-list"></ul>
+                </div>
+
+                <!-- VS Divider -->
+                <div class="vs-divider">
+                    <div class="vs-circle">VS</div>
+                </div>
+
+                <!-- Squadra Blu -->
+                <div class="team-card team-blue">
+                    <div class="team-header">
+                        <div class="team-badge">
+                            <span class="team-icon">🔵</span>
+                            <h3>Team Blue</h3>
+                        </div>
+                        <div class="team-count" id="blueCount">0</div>
+                    </div>
+                    <ul id="blueTeam" class="team-list"></ul>
+                </div>
+            </div>
+
+            <!-- Bottoni azione -->
+            <div class="action-buttons">
+                <button id="rigeneraBtn" class="btn btn-secondary">
+                    <span>🔄 Rigenera</span>
+                </button>
+                <button id="azzeraBtn" class="btn btn-outline">
+                    <span>↺ Ricomincia</span>
+                </button>
+            </div>
         </div>
-
-		<div id="loadingSpinner" class="loader hidden"></div>
-
-        <!-- Bottoni -->
-        <div id="buttonsSection">
-            <button id="generaBtn" class="hidden">Genera Squadre</button>
-            <button id="azzeraBtn" class="hidden">Azzera</button>
-            <button id="rigeneraBtn" class="hidden">Rigenera</button>
-            <button id="azzeraAllBtn" class="hidden">Azzera Tutti</button>
-        </div>
-		<p id="ricalcoliCounter" class="small-text hidden">Ricalcoli: <span id="ricalcoliValue">0</span></p>
-
     </div>
-    
+
     <script src="script.js"></script>
-	
 </body>
 </html>

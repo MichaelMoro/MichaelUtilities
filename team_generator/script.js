@@ -3,58 +3,82 @@ document.addEventListener('DOMContentLoaded', function () {
     let participants = [];
     let redTeam = [];
     let blueTeam = [];
-	let ricalcoliCount = 0;
+    let ricalcoliCount = 0;
 
     const numParticipantsInput = document.getElementById('numParticipants');
     const participantsInputSection = document.getElementById('participantsInputSection');
+    const namesGrid = document.getElementById('namesGrid');
     const generaBtn = document.getElementById('generaBtn');
     const azzeraBtn = document.getElementById('azzeraBtn');
     const rigeneraBtn = document.getElementById('rigeneraBtn');
-    const azzeraAllBtn = document.getElementById('azzeraAllBtn');
     const impostaBtn = document.getElementById('impostaBtn');
-    const participantsLabel = document.getElementById('participantsLabel');
     const teamsSection = document.getElementById('teamsSection');
+    const loadingSection = document.getElementById('loadingSection');
     const redTeamList = document.getElementById('redTeam');
     const blueTeamList = document.getElementById('blueTeam');
     const participantsTab = document.getElementById('participantsTab');
-    const loadingSpinner = document.getElementById('loadingSpinner'); // Rotellina di caricamento
-	const ricalcoliValue = document.getElementById('ricalcoliValue');
-	const ricalcoliCounter = document.getElementById('ricalcoliCounter');
-	
+    const ricalcoliValue = document.getElementById('ricalcoliValue');
+    const totalPlayersEl = document.getElementById('totalPlayers');
+    const redCountEl = document.getElementById('redCount');
+    const blueCountEl = document.getElementById('blueCount');
+
     impostaBtn.addEventListener('click', setParticipants);
     generaBtn.addEventListener('click', generateTeams);
     azzeraBtn.addEventListener('click', resetTeams);
     rigeneraBtn.addEventListener('click', regenerateTeams);
-    azzeraAllBtn.addEventListener('click', resetAllParticipants);
+
+    numParticipantsInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            setParticipants();
+        }
+    });
 
     function setParticipants() {
         numParticipants = parseInt(numParticipantsInput.value);
 
-        if (numParticipants < 2 || numParticipants > 20) {
-            alert('Il numero dei partecipanti deve essere tra 2 e 20.');
+        if (isNaN(numParticipants) || numParticipants < 2 || numParticipants > 20) {
+            showNotification('⚠️ Inserisci un numero tra 2 e 20', 'error');
+            numParticipantsInput.focus();
             return;
         }
 
         participants = [];
-        
-        participantsLabel.classList.add('hidden');
-        numParticipantsInput.classList.add('hidden');
-        impostaBtn.classList.add('hidden');
-        
-        participantsInputSection.innerHTML = '<h2>Inserisci i nomi dei partecipanti</h2>';
+        namesGrid.innerHTML = '';
 
         for (let i = 0; i < numParticipants; i++) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'name-input-wrapper';
+            
+            const numberLabel = document.createElement('span');
+            numberLabel.className = 'name-number';
+            numberLabel.textContent = `#${i + 1}`;
+            
             const inputField = document.createElement('input');
             inputField.type = 'text';
-            inputField.placeholder = `Partecipante ${i + 1}`;
+            inputField.placeholder = `Giocatore ${i + 1}`;
             inputField.id = `participant${i}`;
-            participantsInputSection.appendChild(inputField);
+            inputField.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const nextInput = document.getElementById(`participant${i + 1}`);
+                    if (nextInput) {
+                        nextInput.focus();
+                    } else {
+                        generateTeams();
+                    }
+                }
+            });
+            
+            wrapper.appendChild(numberLabel);
+            wrapper.appendChild(inputField);
+            namesGrid.appendChild(wrapper);
         }
 
-        participantsInputSection.classList.remove('hidden');
-        teamsSection.classList.add('hidden');
         participantsTab.classList.add('hidden');
-        generaBtn.classList.remove('hidden');
+        participantsInputSection.classList.remove('hidden');
+        
+        setTimeout(() => {
+            document.getElementById('participant0').focus();
+        }, 100);
     }
 
     function generateTeams() {
@@ -67,11 +91,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (participants.length < 2) {
-            alert('Devi inserire almeno 2 partecipanti.');
+            showNotification('⚠️ Inserisci almeno 2 nomi', 'error');
             return;
         }
 
-        loadingSpinner.classList.remove('hidden'); // Mostra la rotellina
+        participantsInputSection.classList.add('hidden');
+        loadingSection.classList.remove('hidden');
 
         setTimeout(() => {
             const shuffledParticipants = shuffle(participants);
@@ -80,15 +105,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             displayTeams();
 
-            participantsInputSection.classList.add('hidden');
-            participantsTab.classList.remove('hidden');
+            loadingSection.classList.add('hidden');
             teamsSection.classList.remove('hidden');
-            generaBtn.classList.add('hidden');
-            rigeneraBtn.classList.remove('hidden');
-            azzeraBtn.classList.remove('hidden');
-
-            loadingSpinner.classList.add('hidden'); // Nascondi la rotellina
-        }, 2000); // 2 secondi di caricamento
+            
+            updateStats();
+        }, 1500);
     }
 
     function shuffle(array) {
@@ -100,129 +121,164 @@ document.addEventListener('DOMContentLoaded', function () {
         return shuffledArray;
     }
 
-function displayTeams() {
-  redTeamList.innerHTML = '';
-  blueTeamList.innerHTML = '';
+    function displayTeams() {
+        redTeamList.innerHTML = '';
+        blueTeamList.innerHTML = '';
 
-  // Mostra la Squadra Rossa
-  redTeam.forEach((member, index) => {
-    const li = document.createElement('li');
-    if (index === 0) {
-      li.classList.add('first');
+        redTeam.forEach((member, index) => {
+            const li = document.createElement('li');
+            li.style.animationDelay = `${index * 0.1}s`;
+            
+            if (index === 0) {
+                li.classList.add('captain-item');
+                li.innerHTML = `
+                    <span>${member}</span>
+                    <span class="captain-badge">
+                        <span>👑</span>
+                        <span>Captain</span>
+                    </span>
+                `;
+            } else {
+                li.innerHTML = `<span>${member}</span>`;
+            }
+            
+            redTeamList.appendChild(li);
+        });
+
+        blueTeam.forEach((member, index) => {
+            const li = document.createElement('li');
+            li.style.animationDelay = `${index * 0.1}s`;
+            
+            if (index === 0) {
+                li.classList.add('captain-item');
+                li.innerHTML = `
+                    <span>${member}</span>
+                    <span class="captain-badge">
+                        <span>👑</span>
+                        <span>Captain</span>
+                    </span>
+                `;
+            } else {
+                li.innerHTML = `<span>${member}</span>`;
+            }
+            
+            blueTeamList.appendChild(li);
+        });
     }
-    li.innerHTML = `${member} ${index === 0 ? '<span class="captain">C</span>' : ''}`;
-    li.style.backgroundColor = "#E74C3C"; // Colore Rosso per la squadra Rossa
-    li.style.color = "white"; // Colore del testo bianco
-    redTeamList.appendChild(li);
 
-    // Aggiungi la classe 'show' con ritardo
-    setTimeout(() => {
-      li.classList.add('show'); // Applica la classe 'show' per farlo apparire
-    }, index * 1000); // Ritardo di 1 secondo per ogni elemento
-  });
-
-  // Mostra la Squadra Blu
-  blueTeam.forEach((member, index) => {
-    const li = document.createElement('li');
-    if (index === 0) {
-      li.classList.add('first');
+    function updateStats() {
+        totalPlayersEl.textContent = participants.length;
+        redCountEl.textContent = redTeam.length;
+        blueCountEl.textContent = blueTeam.length;
+        ricalcoliValue.textContent = ricalcoliCount;
     }
-    li.innerHTML = `${member} ${index === 0 ? '<span class="captain">C</span>' : ''}`;
-    li.style.backgroundColor = "#3498DB"; // Colore Blu per la squadra Blu
-    li.style.color = "white"; // Colore del testo bianco
-    blueTeamList.appendChild(li);
-
-    // Aggiungi la classe 'show' con ritardo
-    setTimeout(() => {
-      li.classList.add('show'); // Applica la classe 'show' per farlo apparire
-    }, index * 1000); // Ritardo di 1 secondo per ogni elemento
-  });
-}
 
 
 
 
-	function regenerateTeams() {
-		loadingSpinner.classList.remove('hidden'); // Mostra la rotellina
+    function regenerateTeams() {
+        teamsSection.classList.add('hidden');
+        loadingSection.classList.remove('hidden');
 
-		setTimeout(() => {
-			const shuffledParticipants = shuffle(participants);
-			redTeam = shuffledParticipants.slice(0, Math.ceil(shuffledParticipants.length / 2));
-			blueTeam = shuffledParticipants.slice(Math.ceil(shuffledParticipants.length / 2));
+        setTimeout(() => {
+            const shuffledParticipants = shuffle(participants);
+            redTeam = shuffledParticipants.slice(0, Math.ceil(shuffledParticipants.length / 2));
+            blueTeam = shuffledParticipants.slice(Math.ceil(shuffledParticipants.length / 2));
 
-			displayTeams();
+            displayTeams();
+            
+            ricalcoliCount++;
+            updateStats();
 
-			// Incrementa il contatore dei ricalcoli
-			ricalcoliCount++;
-			ricalcoliValue.textContent = ricalcoliCount;
-			ricalcoliCounter.classList.remove('hidden'); // Mostra il contatore
+            loadingSection.classList.add('hidden');
+            teamsSection.classList.remove('hidden');
+            
+            showNotification('✅ Squadre rigenerate!', 'success');
+        }, 1500);
+    }
 
-			loadingSpinner.classList.add('hidden'); // Nascondi la rotellina
-		}, 2000); // 2 secondi di caricamento
-	}
+    function resetTeams() {
+        redTeam = [];
+        blueTeam = [];
+        participants = [];
+        ricalcoliCount = 0;
+        
+        teamsSection.classList.add('hidden');
+        participantsTab.classList.remove('hidden');
+        
+        numParticipantsInput.value = '';
+        numParticipantsInput.focus();
+        
+        showNotification('🔄 Reset completato', 'success');
+    }
 
+    function showNotification(message, type = 'info') {
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
 
-	function resetTeams() {
-		redTeam = [];
-		blueTeam = [];
-		participants = [];
-		
-		participantsInputSection.classList.add('hidden');
-		numParticipantsInput.classList.remove('hidden');
-		participantsTab.classList.remove('hidden');
-		participantsLabel.classList.remove('hidden');
-		impostaBtn.classList.remove('hidden');
-		generaBtn.classList.add('hidden');
-		azzeraBtn.classList.add('hidden');
-		rigeneraBtn.classList.add('hidden');
-		teamsSection.classList.add('hidden');
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        
+        const styles = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        `;
+        
+        notification.style.cssText = styles;
+        
+        if (type === 'error') {
+            notification.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+            notification.style.color = 'white';
+        } else if (type === 'success') {
+            notification.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            notification.style.color = 'white';
+        } else {
+            notification.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+            notification.style.color = 'white';
+        }
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease-out';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
 
-		// Resetta il contatore dei ricalcoli
-		ricalcoliCount = 0;
-		ricalcoliValue.textContent = ricalcoliCount;
-		ricalcoliCounter.classList.add('hidden'); // Nascondi il contatore
-	}
-	function resetTeams() {
-		redTeam = [];
-		blueTeam = [];
-		participants = [];
-		
-		participantsInputSection.classList.add('hidden');
-		numParticipantsInput.classList.remove('hidden');
-		participantsTab.classList.remove('hidden');
-		participantsLabel.classList.remove('hidden');
-		impostaBtn.classList.remove('hidden');
-		generaBtn.classList.add('hidden');
-		azzeraBtn.classList.add('hidden');
-		rigeneraBtn.classList.add('hidden');
-		teamsSection.classList.add('hidden');
-
-		// Resetta il contatore dei ricalcoli
-		ricalcoliCount = 0;
-		ricalcoliValue.textContent = ricalcoliCount;
-		ricalcoliCounter.classList.add('hidden'); // Nascondi il contatore
-	}
-
-
-	function resetAllParticipants() {
-		participants = [];
-		redTeam = [];
-		blueTeam = [];
-
-		participantsInputSection.innerHTML = '';
-		participantsTab.classList.remove('hidden');
-		numParticipantsInput.classList.remove('hidden');
-		participantsInputSection.classList.add('hidden');
-		impostaBtn.classList.remove('hidden');
-		generaBtn.classList.add('hidden');
-		azzeraBtn.classList.add('hidden');
-		rigeneraBtn.classList.add('hidden');
-		teamsSection.classList.add('hidden');
-
-		// Resetta il contatore dei ricalcoli
-		ricalcoliCount = 0;
-		ricalcoliValue.textContent = ricalcoliCount;
-		ricalcoliCounter.classList.add('hidden'); // Nascondi il contatore
-	}
-
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 });
