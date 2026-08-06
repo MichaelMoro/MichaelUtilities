@@ -208,6 +208,14 @@ body.dark-mode .activity__alt strong {
   color: #f5a962;
 }
 
+body.dark-mode .travel-time::before {
+  background-image: linear-gradient(to bottom, #e8e3db 40%, transparent 40%);
+}
+
+body.dark-mode .travel-time__duration {
+  color: #e8e3db;
+}
+
 body.dark-mode .maps-link {
   background: #4285f4;
 }
