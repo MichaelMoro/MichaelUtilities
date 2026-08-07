@@ -271,6 +271,46 @@ body.dark-mode .dark-mode-toggle:hover {
   background: rgba(0, 0, 0, 0.5);
 }
 
+body.dark-mode .flight-card {
+  background: #2b2621;
+  border-color: #3d3731;
+  box-shadow: 
+    0 1px 3px rgba(0,0,0,0.3),
+    0 12px 32px -8px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .flight-card:hover {
+  box-shadow: 
+    0 4px 12px rgba(0,0,0,0.4),
+    0 24px 48px -12px rgba(0,0,0,0.6);
+}
+
+body.dark-mode .flight-card__header {
+  background: linear-gradient(180deg, rgba(29, 129, 138, 0.08) 0%, transparent 100%);
+}
+
+body.dark-mode .flight-card__label {
+  color: #a89d8f;
+}
+
+body.dark-mode .flight-card--departure .flight-card__time {
+  background: linear-gradient(135deg, #4db8c4 0%, #1D818A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body.dark-mode .flight-card--arrival .flight-card__time {
+  background: linear-gradient(135deg, #f5a962 0%, #D97D2B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body.dark-mode .flight-card__date {
+  color: #a89d8f;
+}
+
 @media (prefers-contrast: high) {
   body.dark-mode {
     --shadow-card: none;

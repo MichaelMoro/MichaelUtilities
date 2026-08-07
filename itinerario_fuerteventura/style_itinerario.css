@@ -538,7 +538,9 @@ body.dark-mode .dark-mode-toggle .moon-icon {
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.page-ristoranti .day-card {
+.page-ristoranti .day-card,
+.page-frasi .day-card,
+.timeline flight-cards-container {
   margin-top: 20px;
 }
 
@@ -1014,5 +1016,191 @@ body {
 
   .maps-link {
     display: none;
+  }
+}
+
+/* ============================================================
+   FLIGHT CARDS — Impeccable Design
+   Premium card design with sophisticated gradients and typography
+   ============================================================ */
+
+.flight-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.flight-card {
+  position: relative;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow:
+    0 1px 3px rgba(43,38,33,0.08),
+    0 12px 32px -8px rgba(43,38,33,0.12);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid var(--sand-200);
+}
+
+.flight-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 4px 12px rgba(43,38,33,0.12),
+    0 24px 48px -12px rgba(43,38,33,0.20);
+}
+
+.flight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  transition: height 0.3s ease;
+}
+
+.flight-card:hover::before {
+  height: 8px;
+}
+
+.flight-card--departure::before {
+  background: linear-gradient(90deg, #1D818A 0%, #0F5C63 100%);
+}
+
+.flight-card--arrival::before {
+  background: linear-gradient(90deg, #D97D2B 0%, #C56A1F 100%);
+}
+
+.flight-card__header {
+  padding: 32px 32px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(180deg, var(--sand-50) 0%, transparent 100%);
+}
+
+.flight-card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.flight-card--departure .flight-card__icon {
+  background: linear-gradient(135deg, #1D818A 0%, #0F5C63 100%);
+  color: white;
+  box-shadow:
+    0 4px 12px rgba(29, 129, 138, 0.25),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.flight-card--arrival .flight-card__icon {
+  background: linear-gradient(135deg, #D97D2B 0%, #C56A1F 100%);
+  color: white;
+  box-shadow:
+    0 4px 12px rgba(217, 125, 43, 0.25),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.flight-card:hover .flight-card__icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.flight-card__icon svg {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.flight-card__label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--basalt-600);
+}
+
+.flight-card__body {
+  padding: 0 32px 40px;
+}
+
+.flight-card__time {
+  font-family: var(--font-mono);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--basalt-800) 0%, var(--basalt-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.flight-card--departure .flight-card__time {
+  background: linear-gradient(135deg, #1D818A 0%, #0F5C63 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.flight-card--arrival .flight-card__time {
+  background: linear-gradient(135deg, #D97D2B 0%, #C56A1F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.flight-card__date {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--basalt-600);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .flight-cards-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .flight-card__header {
+    padding: 24px 24px 20px;
+  }
+
+  .flight-card__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .flight-card__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .flight-card__label {
+    font-size: 14px;
+  }
+
+  .flight-card__body {
+    padding: 0 24px 32px;
+  }
+
+  .flight-card__time {
+    font-size: 52px;
+  }
+
+  .flight-card__date {
+    font-size: 16px;
   }
 }
