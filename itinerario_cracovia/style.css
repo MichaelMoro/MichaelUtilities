@@ -680,16 +680,6 @@ body.dark-mode .slot em { color: var(--gold); }
   background: linear-gradient(90deg, var(--burgundy-500), var(--gold-500));
 }
 .food-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
-.food-card--feature {
-  grid-column: 1 / -1;
-  background: linear-gradient(135deg, var(--burgundy-700), var(--burgundy-900));
-  color: var(--snow-50);
-  border-color: var(--burgundy-900);
-}
-body.dark-mode .food-card--feature { background: linear-gradient(135deg, #2A1018, #3A1A24); }
-.food-card--feature::before { background: linear-gradient(90deg, var(--gold-500), var(--white), var(--gold-500)); }
-.food-card--feature h3, .food-card--feature p { color: var(--snow-50); }
-.food-card--feature .food-card__where { color: var(--gold-100); }
 .food-card__num {
   font-family: var(--font-display);
   font-size: 38px;
