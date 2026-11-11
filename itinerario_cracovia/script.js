@@ -259,34 +259,37 @@
 
   // ---------- CONVERTER PLN <-> EUR ----------
   function setupConverter() {
-    // tasso salvato
+    // tasso salvato (validato, fallback 4.25)
     const savedRate = parseFloat(localStorage.getItem(STORAGE_RATE));
-    if (!isNaN(savedRate) && savedRate > 0) {
+    if (isFinite(savedRate) && savedRate > 0) {
       rate = savedRate;
-      rateInput.value = rate;
-      markActivePreset();
     }
+    rateInput.value = rate;
+    markActivePreset();
 
+    // Listener PLN -> EUR
     plnInput.addEventListener('input', () => {
       lastEdited = 'pln';
-      convertFromPln();
+      updateEurFromPln();
     });
-    eurInput.addEventListener('input', () => {
-      lastEdited = 'eur';
-      convertFromEur();
+    plnInput.addEventListener('change', () => {
+      lastEdited = 'pln';
+      updateEurFromPln();
     });
 
-    rateInput.addEventListener('input', () => {
-      const v = parseFloat(rateInput.value);
-      if (!isNaN(v) && v > 0) {
-        rate = v;
-        localStorage.setItem(STORAGE_RATE, String(rate));
-        markActivePreset();
-        // ricalcola usando l'ultimo valore guida
-        if (lastEdited === 'pln') convertFromPln();
-        else convertFromEur();
-      }
+    // Listener EUR -> PLN
+    eurInput.addEventListener('input', () => {
+      lastEdited = 'eur';
+      updatePlnFromEur();
     });
+    eurInput.addEventListener('change', () => {
+      lastEdited = 'eur';
+      updatePlnFromEur();
+    });
+
+    // Tasso personalizzato
+    rateInput.addEventListener('input', onRateChange);
+    rateInput.addEventListener('change', onRateChange);
 
     presetBtns.forEach((b) => {
       b.addEventListener('click', () => {
@@ -294,52 +297,73 @@
         rateInput.value = rate;
         localStorage.setItem(STORAGE_RATE, String(rate));
         markActivePreset();
-        if (lastEdited === 'pln') convertFromPln();
-        else convertFromEur();
+        recalcLast();
       });
     });
 
+    // Tap rapidi
     chips.forEach((c) => {
       c.addEventListener('click', () => {
-        const v = parseFloat(c.dataset.pln);
-        plnInput.value = v;
+        plnInput.value = c.dataset.pln;
         lastEdited = 'pln';
-        convertFromPln();
+        updateEurFromPln();
         plnInput.focus();
+        plnInput.select && plnInput.select();
       });
     });
 
+    // Swap
     swapBtn.addEventListener('click', () => {
-      // inverte visualmente i valori (PLN <-> EUR) e ricalcola
-      const pv = plnInput.value;
-      const ev = eurInput.value;
-      plnInput.value = ev ? formatNum(parseFloat(ev) * rate) : '';
-      eurInput.value = pv ? formatNum(parseFloat(pv) / rate) : '';
+      const pv = parseFloat(plnInput.value);
+      const ev = parseFloat(eurInput.value);
+      const safeRate = rate > 0 ? rate : 4.25;
+      if (isFinite(ev)) {
+        plnInput.value = ev * safeRate;
+      } else if (isFinite(pv)) {
+        plnInput.value = '';
+      }
+      updateEurFromPln();
       lastEdited = 'pln';
     });
   }
 
-  function convertFromPln() {
+  function onRateChange() {
+    const v = parseFloat(rateInput.value);
+    if (isFinite(v) && v > 0) {
+      rate = v;
+      localStorage.setItem(STORAGE_RATE, String(rate));
+      markActivePreset();
+      recalcLast();
+    }
+  }
+
+  function recalcLast() {
+    if (lastEdited === 'pln') updateEurFromPln();
+    else updatePlnFromEur();
+  }
+
+  function updateEurFromPln() {
     const v = parseFloat(plnInput.value);
-    if (isNaN(v)) {
+    const safeRate = rate > 0 ? rate : 4.25;
+    if (!isFinite(v) || v === 0) {
       eurInput.value = '';
       return;
     }
-    eurInput.value = formatNum(v / rate);
+    eurInput.value = formatNum(v / safeRate);
   }
 
-  function convertFromEur() {
+  function updatePlnFromEur() {
     const v = parseFloat(eurInput.value);
-    if (isNaN(v)) {
+    const safeRate = rate > 0 ? rate : 4.25;
+    if (!isFinite(v) || v === 0) {
       plnInput.value = '';
       return;
     }
-    plnInput.value = formatNum(v * rate);
+    plnInput.value = formatNum(v * safeRate);
   }
 
   function formatNum(n) {
     if (!isFinite(n)) return '';
-    // massimo 2 decimali, virgola come separatore all'itaaaaliano
     return n
       .toFixed(2)
       .replace('.', ',')
