@@ -2,382 +2,254 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="theme-color" content="#8B1538" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#2E5C8A" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Cracovia 29 nov – 1 dic — Itinerario Natale</title>
+    <title>Cracovia — 29 nov / 1 dic</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="trip">
-      <!-- ============ HEADER ============ -->
-      <header class="trip-header">
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Cambia tema chiaro/scuro"
-        >
-          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
+    <!-- ============================ MASTHEAD ============================ -->
+    <header class="masthead">
+      <div class="masthead__bar">
+        <span class="masthead__issue">VOL. 01 · N° 29</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
+          <span class="theme-toggle__sun" aria-hidden="true">DAY</span>
+          <span class="theme-toggle__moon" aria-hidden="true">NIGHT</span>
         </button>
-
-        <div class="trip-header__eyebrow">
-          <span class="snow">❄</span> 29 Nov – 1 Dic · Mercatini di Natale <span class="snow">❄</span>
-        </div>
-        <h1 class="trip-header__title">Cracovia</h1>
-        <p class="trip-header__tagline">
-          Un ritmo rilassato, a piedi, tra cucina tipica e atmosfera natalizia.
-        </p>
-        <div class="trip-header__meta">
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Zacisze+4+Krakow"
-            target="_blank"
-            rel="noopener"
-            class="trip-header__meta-link"
-            >🏠 Alloggio: via Zacisze 4</a
-          >
-        </div>
-      </header>
-
-      <!-- ============ RICERCA ============ -->
-      <div class="search-container">
-        <div class="search-box">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="11" cy="11" r="8" />
-            <path d="M21 21l-4.35-4.35" />
-          </svg>
-          <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="Cerca luoghi, piatti, ristoranti..."
-            autocomplete="off"
-          />
-          <button class="search-clear" id="searchClear" aria-label="Cancella ricerca">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <div class="search-results" id="searchResults"></div>
       </div>
 
-      <!-- ============ NAV GIORNI ============ -->
-      <nav class="day-nav" id="dayNav" aria-label="Navigazione giorni">
-        <div class="day-nav-scroll">
-          <button class="day-chip active" data-day="all">
-            <span class="day-chip-label">Tutti</span>
-          </button>
-          <button class="day-chip" data-day="29">
-            <span class="day-chip-num">29</span>
-            <span class="day-chip-label">Dom</span>
-          </button>
-          <button class="day-chip" data-day="30">
-            <span class="day-chip-num">30</span>
-            <span class="day-chip-label">Lun</span>
-          </button>
-          <button class="day-chip" data-day="1">
-            <span class="day-chip-num">01</span>
-            <span class="day-chip-label">Mar</span>
-          </button>
-        </div>
-      </nav>
+      <div class="masthead__hero">
+        <p class="masthead__eyebrow">A WINTER DISPATCH · 29.11 — 01.12</p>
+        <h1 class="masthead__title">
+          Kraków<span class="masthead__title-sub">Christmas Markets</span>
+        </h1>
+        <p class="masthead__lede">
+          Tre giorni a piedi, tra centre storico, Wawel e Kazimierz.
+          Cucina tipica, vin brulé e l'oro delle casette di legno.
+        </p>
+      </div>
 
-      <!-- ============ AEROPORTALI ============ -->
-      <section class="section" id="aeroporto" data-day="all">
-        <h2 class="section-title">
-          <span class="section-emoji">✈️</span> Trasferimenti Aeroportuali
-        </h2>
-        <div class="airport-grid">
-          <article class="airport-card">
-            <div class="airport-card__badge airport-card__badge--andata">Andata · Dom 29</div>
-            <h3>Aeroporto → Centro</h3>
-            <ul class="airport-list">
-              <li>Atterraggio <strong>08:20</strong></li>
-              <li>Treno regionale <em>Kraków Lotniko → Kraków Główny</em></li>
-              <li>Durata: <strong>17–20 min</strong></li>
-              <li>Poi 5–7 min a piedi fino a via Zacisze 4</li>
-            </ul>
-          </article>
-          <article class="airport-card">
-            <div class="airport-card__badge airport-card__badge--ritorno">Ritorno · Mar 1</div>
-            <h3>Centro → Aeroporto</h3>
-            <ul class="airport-list">
-              <li>Treno <strong>treno delle 15:00</strong></li>
-              <li>Partenze ogni ~30 min</li>
-              <li>Percorso inverso: Zacisze 4 → Kraków Główny → Lotnisko</li>
-            </ul>
-          </article>
-        </div>
-        <div class="ticket-box">
-          <div class="ticket-box__price">
-            <span class="ticket-box__amount">~17 PLN</span>
-            <span class="ticket-box__euro">(~4 €)</span>
-          </div>
-          <div class="ticket-box__how">
-            <strong>Biglietti:</strong>
-            <ol>
-              <li>Macchinette in aeroporto/stazione (carte e contanti)</li>
-              <li>App: Koleje Małopolskie o Jakdojade</li>
-              <li>A bordo treno (capotreno, ma meglio prenderlo prima)</li>
-            </ol>
-          </div>
-        </div>
-      </section>
+      <a class="masthead__stamp" href="https://www.google.com/maps/search/?api=1&query=Zacisze+4+Krakow" target="_blank" rel="noopener">
+        <span>ALLOGGIO</span>
+        <span class="masthead__addr">via Zacisze 4 →</span>
+      </a>
+    </header>
 
-      <!-- ============ CONVERTITORE VALUTA ============ -->
-      <section class="section" id="convertitore">
-        <h2 class="section-title">
-          <span class="section-emoji">💱</span> Convertitore PLN ↔ EUR
-        </h2>
-        <p class="section-subtitle">Tasso di riferimento: 1 € ≈ 4,25 PLN (aggiornabile). Utile per biglietti, pasti e mercatini.</p>
-        <div class="converter">
-          <div class="converter__row">
-            <label for="plnInput">Zloty (PLN)</label>
-            <div class="converter__field">
-              <input type="number" id="plnInput" inputmode="decimal" min="0" step="0.01" placeholder="0,00" autocomplete="off" />
-              <span class="converter__currency">PLN</span>
-            </div>
-          </div>
-          <button class="converter__swap" id="swapBtn" type="button" aria-label="Inverti valuta attiva">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M7 16V4M7 4L3 8M7 4l4 4" />
-              <path d="M17 8v12M17 20l4-4M17 20l-4-4" />
-            </svg>
-          </button>
-          <div class="converter__row">
-            <label for="eurInput">Euro (EUR)</label>
-            <div class="converter__field">
-              <input type="number" id="eurInput" inputmode="decimal" min="0" step="0.01" placeholder="0,00" autocomplete="off" />
-              <span class="converter__currency">€</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="converter__rate">
-          <label for="rateInput">Tasso personalizzato (PLN per 1 €):</label>
-          <input type="number" id="rateInput" inputmode="decimal" min="0" step="0.01" value="4.25" autocomplete="off" />
-          <button class="converter__preset" data-preset="4.25" type="button">4,25</button>
-          <button class="converter__preset" data-preset="4.30" type="button">4,30</button>
-          <button class="converter__preset" data-preset="4.40" type="button">4,40</button>
-        </div>
-
-        <div class="converter__quick">
-          <span class="converter__quick-label">Tap rapidi:</span>
-          <button class="converter__chip" data-pln="17" type="button">17 PLN <em>(treno)</em></button>
-          <button class="converter__chip" data-pln="10" type="button">10 PLN</button>
-          <button class="converter__chip" data-pln="25" type="button">25 PLN</button>
-          <button class="converter__chip" data-pln="50" type="button">50 PLN</button>
-          <button class="converter__chip" data-pln="100" type="button">100 PLN</button>
-        </div>
-      </section>
-
-      <!-- ============ ITINERARIO ============ -->
-      <section class="section" id="itinerario">
-        <h2 class="section-title">
-          <span class="section-emoji">🗺️</span> Itinerario Giorno per Giorno
-        </h2>
-
-        <!-- GIORNO 29 -->
-        <article class="day-card" data-day="29" id="day-29">
-          <header class="day-card__header">
-            <div class="day-card__date">
-              <span class="day-card__num">29</span>
-              <span class="day-card__dow">Domenica</span>
-            </div>
-            <h3 class="day-card__title">Il Cuore del Centro Storico e i Mercatini di Natale</h3>
-          </header>
-          <div class="day-card__body">
-            <div class="slot">
-              <span class="slot__time">Mattina</span>
-              <p>Check-in a via Zacisze 4. Passeggiata rilassata dal <strong>Kraków Barbican</strong>, ingresso dalla <strong>Porta di San Floriano</strong> e via Reale fino alla <strong>Rynek Główny</strong>, la piazza medievale più grande d'Europa, con le prime casette in legno dei mercatini di Natale.</p>
-            </div>
-            <div class="slot slot--food">
-              <span class="slot__time">Pranzo</span>
-              <p><strong>Morskie Oko</strong> — taverna in stile montanaro, arredi in legno e musica tipica.</p>
-              <p class="tip">🍽️ Prova i <em>pierogi</em> (ravioli polacchi, bolliti e grigliati) e una <em>żurek</em> servita in pagnotta di pane scavata.</p>
-            </div>
-            <div class="slot">
-              <span class="slot__time">Pomeriggio</span>
-              <p>Piazza senza fretta. Visita il <strong>Mercato dei Tessuti (Sukiennice)</strong> con artigianato e ambra, e la <strong>Basilica di Santa Maria</strong> con l'altare ligneo di Veit Stoss.</p>
-            </div>
-            <div class="slot slot--food">
-              <span class="slot__time">Sera / Cena</span>
-              <p>Con il buio i mercatini danno il meglio: luci calde e alberi illuminati. Passeggia con una tazza di <em>vin brulé (grzane wino)</em>.</p>
-              <p class="tip">🧀 Assaggia l'<em>oscypek</em> (formaggio di pecora affumicato) piastrato con marmellata di mirtilli rossi. Carne alla griglia dai banchi oppure una taverna del centro.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- GIORNO 30 -->
-        <article class="day-card" data-day="30" id="day-30">
-          <header class="day-card__header">
-            <div class="day-card__date">
-              <span class="day-card__num">30</span>
-              <span class="day-card__dow">Lunedì</span>
-            </div>
-            <h3 class="day-card__title">Sulle Tracce dei Re e l'Atmosfera di Wawel</h3>
-          </header>
-          <div class="day-card__body">
-            <div class="slot">
-              <span class="slot__time">Mattina</span>
-              <p>Sveglia comoda. La collina del <strong>Castello del Wawel</strong> sopra la Vistola. Cortili esterni e Cattedrale. Saluta il famoso <strong>Drago del Wawel</strong> alla base della collina (sputa fuoco periodicamente!).</p>
-            </div>
-            <div class="slot slot--food">
-              <span class="slot__time">Pranzo</span>
-              <p>Una autentica <strong>Bar Mleczny</strong> (latteria popolare, eredità della storia polacca): cibo casalingo a prezzi bassissimi. Es. <em>Bar Mleczny Centralny</em>.</p>
-              <p class="tip">🍽️ <em>Placki ziemniacze</em> (frittelle di patate) o <em>schabowy</em> (cotoletta di maiale) con <em>kapusta zasmażana</em> (cavolo).</p>
-            </div>
-            <div class="slot">
-              <span class="slot__time">Pomeriggio</span>
-              <p>Passeggiata lungo il <strong>fiume Vistola</strong>, oppure le vie laterali del centro: <strong>via Grodzka</strong> e <strong>via Kanonicza</strong>, tra le più antiche e affascinanti. Tappa in una caffetteria per <em>szarlotka</em> (torta di mele calda) e tè speziato.</p>
-            </div>
-            <div class="slot slot--food">
-              <span class="slot__time">Sera / Cena</span>
-              <p>Verso il quartiere storico di <strong>Kazimierz</strong> (antico quartiere ebraico, ~15 min a piedi dal Wawel).</p>
-              <p class="tip">🥂 <strong>Starka | Restaurant & Vodkas</strong> — piatti della tradizione rivisitati e vodka artigianale aromatizzata (prugna, zenzero).</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- GIORNO 1 -->
-        <article class="day-card" data-day="1" id="day-1">
-          <header class="day-card__header">
-            <div class="day-card__date">
-              <span class="day-card__num">01</span>
-              <span class="day-card__dow">Martedì</span>
-            </div>
-            <h3 class="day-card__title">Kazimierz e Ultimi Acquisti Prima della Partenza</h3>
-          </header>
-          <div class="day-card__body">
-            <div class="slot">
-              <span class="slot__time">Mattina</span>
-              <p>Esplora <strong>Kazimierz</strong> alla luce del giorno: quartiere bohémien con sinagoghe storiche, cortili nascosti, librerie indipendenti e murales. Tappa centrale in <strong>plac Nowy</strong>, cuore pulsante.</p>
-            </div>
-            <div class="slot slot--food">
-              <span class="slot__time">Pranzo</span>
-              <p>Su plac Nowy, regina dello street food di Cracovia: la <strong>zapiekanka</strong> — baguette tostata aperta, funghi, formaggio filante e ingredienti a scelta (crauti, salamini…). Chioschi storici nella struttura circolare.</p>
-            </div>
-            <div class="slot">
-              <span class="slot__time">Pomeriggio</span>
-              <p>Rientro calma a via Zacisze 4 per i bagagli. Ultimo salto ai mercatini in piazza per dolcetti tipici da portare a casa, come i <em>piernik</em> (biscotti speziati). Poi stazione per il <strong>treno delle 15:00</strong> verso l'aeroporto.</p>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <!-- ============ CIBI IMPERDIBILI ============ -->
-      <section class="section" id="cibi">
-        <h2 class="section-title">
-          <span class="section-emoji">🍴</span> I 5 Cibi e Bevande Imperdibili
-        </h2>
-        <div class="food-grid">
-          <article class="food-card">
-            <div class="food-card__num">1</div>
-            <h3>Obwarzanek</h3>
-            <p>Ciambella di pane intrecciata, bollita e cosparsa di sale, semi di papavero o sesamo. Il simbolo di Cracovia.</p>
-            <p class="food-card__where">📍 Bancarelle blu sparse per le vie del centro (freschissime la mattina).</p>
-          </article>
-          <article class="food-card">
-            <div class="food-card__num">2</div>
-            <h3>Żurek</h3>
-            <p>Zuppa acida a base di farina di segale fermentata, salsiccia bianca, uovo sodo e maggiorana, spesso in pagnotta di pane.</p>
-            <p class="food-card__where">📍 Morskie Oko o qualsiasi ristorante tipico polacco in centro.</p>
-          </article>
-          <article class="food-card">
-            <div class="food-card__num">3</div>
-            <h3>Pierogi</h3>
-            <p>Ravioli tradizionali polacchi: dai <em>Ruskie</em> (patate e formaggio) alla carne, fino alle versioni dolci con frutta.</p>
-            <p class="food-card__where">📍 Ristoranti del centro storico o Pierogarnie specializzate.</p>
-          </article>
-          <article class="food-card">
-            <div class="food-card__num">4</div>
-            <h3>Zapiekanka</h3>
-            <p>La "pizza-baguette" polacca, croccante fuori e filante dentro, con funghi, formaggio e salse.</p>
-            <p class="food-card__where">📍 Rotonda di plac Nowy a Kazimierz.</p>
-          </article>
-          <article class="food-card">
-            <div class="food-card__num">5</div>
-            <h3>Grzane Wino & Oscypek</h3>
-            <p>Vino caldo speziato con arance e chiodi di garofano, accompagnato da formaggio di pecora affumicato grigliato con marmellata di mirtilli.</p>
-            <p class="food-card__where">📍 Casette di legno dei mercatini di Natale in Rynek Główny.</p>
-          </article>
-        </div>
-      </section>
-
-      <!-- ============ CHECKLIST ============ -->
-      <section class="section" id="checklist">
-        <h2 class="section-title">
-          <span class="section-emoji">✅</span> La mia Checklist
-          <span class="checklist-counter" id="checklistCounter">0 / 0</span>
-        </h2>
-        <p class="section-subtitle">Spunta i piatti e le esperienze man mano che le provi. Restano salvate sul dispositivo.</p>
-        <ul class="checklist" id="checklistList">
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="obwarzanek" /> Mangia un <strong>obwarzanek</strong> dalla bancarella blu</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="zurek" /> Prova la <strong>żurek</strong> nella pagnotta di pane</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="pierogi" /> Ordina i <strong>pierogi</strong> (bolliti e grigliati)</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="zapiekanka" /> Assaggia la <strong>zapiekanka</strong> a plac Nowy</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="oscypek" /> <strong>Oscypek</strong> + mirtilli ai mercatini</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="grzane" /> Tazza di <strong>grzane wino</strong> (vin brulé)</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="barbakan" /> Passeggiata dal <strong>Kraków Barbican</strong> alla Porta di San Floriano</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="sukiennice" /> Visita al <strong>Sukiennice</strong> e alla Basilica di Santa Maria</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="wawel" /> Collina del <strong>Wawel</strong> e Drago sputa-fuoco</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="barmleczny" /> Pranzo in un <strong>Bar Mleczny</strong></label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="kazimierz" /> Esplora <strong>Kazimierz</strong> e plac Nowy</label>
-          </li>
-          <li class="checklist-item">
-            <label><input type="checkbox" data-check="piernik" /> Compra i <strong>piernik</strong> da portare a casa</label>
-          </li>
-        </ul>
-        <button class="checklist-reset" id="checklistReset" type="button">Ricomincia da capo</button>
-      </section>
-
-      <footer class="trip-footer">
-        <p>Itinerario 29 nov – 1 dic · Cracovia · Buon viaggio! <span class="snow">❄</span></p>
-      </footer>
+    <!-- ============================ SEARCH ============================ -->
+    <div class="search">
+      <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+      </svg>
+      <input type="text" id="searchInput" class="search__input" placeholder="cerca un piatto, un luogo, un ristorante" autocomplete="off" />
+      <button class="search__clear" id="searchClear" aria-label="Cancella">✕</button>
     </div>
+    <p class="search__results" id="searchResults"></p>
+
+    <!-- ============================ DAY NAV ============================ -->
+    <nav class="daynav" id="dayNav" aria-label="Giorni">
+      <button class="daynav__chip is-active" data-day="all">TUTTI</button>
+      <button class="daynav__chip" data-day="29"><b>29</b> DOM</button>
+      <button class="daynav__chip" data-day="30"><b>30</b> LUN</button>
+      <button class="daynav__chip" data-day="1"><b>01</b> MAR</button>
+    </nav>
+
+    <!-- ============================ AIRPORT ============================ -->
+    <section class="block" id="aeroporto">
+      <div class="block__kicker">§ 01 — TRASFERIMENTI</div>
+      <h2 class="block__title">Aeroporto <span class="amp">&</span> Centro</h2>
+      <div class="airport">
+        <article class="airport__card airport__card--andata">
+          <div class="airport__tag">ANDATA · DOM 29</div>
+          <h3>LOT → GŁÓWNY</h3>
+          <ul>
+            <li>Atterraggio <b>08:20</b></li>
+            <li>Treno regionale <i>17–20 min</i></li>
+            <li>Poi 5–7 min a piedi → Zacisze 4</li>
+          </ul>
+        </article>
+        <article class="airport__card airport__card--ritorno">
+          <div class="airport__tag">RITORNO · MAR 01</div>
+          <h3>GŁÓWNY → LOT</h3>
+          <ul>
+            <li>Partenza volo <b>15:00</b></li>
+            <li>Treni ogni <i>~30 min</i></li>
+            <li>Percorso inverso Zacisze 4 → Lotnisko</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="ticket">
+        <div class="ticket__price"><b>17 PLN</b><span>~ 4 €</span></div>
+        <ol class="ticket__how">
+          <li>Macchinette in aeroporto/stazione</li>
+          <li>App Koleje Małopolskie o Jakdojade</li>
+          <li>A bordo treno (capotreno, meglio prima)</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================ CONVERTER ============================ -->
+    <section class="block block--accent" id="convertitore">
+      <div class="block__kicker block__kicker--on-accent">§ 02 — VALUTA</div>
+      <h2 class="block__title block__title--on-accent">PLN ↔ EUR</h2>
+      <p class="block__sub block__sub--on-accent">Tasso fisso · 1 € = 4,41 PLN</p>
+
+      <div class="conv">
+        <div class="conv__row">
+          <label for="plnInput">ZLOTY</label>
+          <div class="conv__field">
+            <input type="text" id="plnInput" inputmode="decimal" placeholder="0,00" autocomplete="off" />
+            <span class="conv__cur">PLN</span>
+          </div>
+        </div>
+        <div class="conv__row">
+          <label for="eurInput">EURO</label>
+          <div class="conv__field">
+            <input type="text" id="eurInput" inputmode="decimal" placeholder="0,00" autocomplete="off" />
+            <span class="conv__cur">€</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ ITINERARIO ============================ -->
+    <section class="block" id="itinerario">
+      <div class="block__kicker">§ 03 — ITINERARIO</div>
+      <h2 class="block__title">Tre giorni, <em>a piedi</em></h2>
+
+      <!-- GIORNO 29 -->
+      <article class="day" data-day="29" id="day-29">
+        <header class="day__head">
+          <div class="day__num">29<span>DOM</span></div>
+          <h3 class="day__title">Cuore del centro <span class="amp">&</span> mercatini di Natale</h3>
+        </header>
+        <div class="day__body">
+          <div class="slot">
+            <span class="slot__t">MATTINA</span>
+            <p>Check-in a via Zacisze 4. Dal <b>Kraków Barbican</b> e Porta di San Floriano, via Reale fino alla <b>Rynek Główny</b> — piazza medievale più grande d'Europa, con le prime casette in legno.</p>
+          </div>
+          <div class="slot slot--food">
+            <span class="slot__t">PRANZO</span>
+            <p><b>Morskie Oko</b> — taverna montanara, arredi in legno, musica tipica.</p>
+            <p class="tip"><i>pierogi</i> bolliti e grigliati · <i>żurek</i> nella pagnotta scavata</p>
+          </div>
+          <div class="slot">
+            <span class="slot__t">POMERIGGIO</span>
+            <p><b>Sukiennice</b> — il Mercato dei Tessuti, artigianato e ambra. Poi <b>Basilica di Santa Maria</b> con l'altare ligneo di Veit Stoss.</p>
+          </div>
+          <div class="slot slot--food">
+            <span class="slot__t">SERA</span>
+            <p>Con il buio i mercatini danno il meglio: luci calde e alberi illuminati. Passeggia con una tazza di <i>grzane wino</i>.</p>
+            <p class="tip"><i>oscypek</i> piastrato + marmellata di mirtilli · carne alla griglia dai banchi</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- GIORNO 30 -->
+      <article class="day" data-day="30" id="day-30">
+        <header class="day__head">
+          <div class="day__num">30<span>LUN</span></div>
+          <h3 class="day__title">Sulle tracce dei re <span class="amp">&</span> Wawel</h3>
+        </header>
+        <div class="day__body">
+          <div class="slot">
+            <span class="slot__t">MATTINA</span>
+            <p>Sveglia comoda. Collina del <b>Castello del Wawel</b> sopra la Vistola: cortili e Cattedrale. Saluta il <b>Drago del Wawel</b> (sputa fuoco periodicamente).</p>
+          </div>
+          <div class="slot slot--food">
+            <span class="slot__t">PRANZO</span>
+            <p>Una <b>Bar Mleczny</b> — latteria popolare, cibo casalingo a prezzi bassi. Es. <i>Bar Mleczny Centralny</i>.</p>
+            <p class="tip"><i>placki ziemniacze</i> · <i>schabowy</i> con <i>kapusta zasmażana</i></p>
+          </div>
+          <div class="slot">
+            <span class="slot__t">POMERIGGIO</span>
+            <p>Lungo la <b>Vistola</b>, oppure <b>via Grodzka</b> e <b>via Kanonicza</b>. Caffetteria per <i>szarlotka</i> calda e tè speziato.</p>
+          </div>
+          <div class="slot slot--food">
+            <span class="slot__t">SERA</span>
+            <p>Verso <b>Kazimierz</b>, ~15 min a piedi dal Wawel.</p>
+            <p class="tip"><b>Starka · Restaurant & Vodkas</b> — tradizione rivisitata, vodka aromatizzata (prugna, zenzero)</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- GIORNO 1 -->
+      <article class="day" data-day="1" id="day-1">
+        <header class="day__head">
+          <div class="day__num">01<span>MAR</span></div>
+          <h3 class="day__title">Kazimierz <span class="amp">&</span> ultimi acquisti</h3>
+        </header>
+        <div class="day__body">
+          <div class="slot">
+            <span class="slot__t">MATTINA</span>
+            <p><b>Kazimierz</b> alla luce del giorno: quartiere bohémien, sinagoghe, cortili nascosti, librerie, murales. Cuore pulsante: <b>plac Nowy</b>.</p>
+          </div>
+          <div class="slot slot--food">
+            <span class="slot__t">PRANZO</span>
+            <p>Su plac Nowy, regina dello street food: la <b>zapiekanka</b> — baguette tostata, funghi, formaggio filante, ingredienti a scelta. Chioschi storici nella struttura circolare.</p>
+          </div>
+          <div class="slot">
+            <span class="slot__t">POMERIGGIO</span>
+            <p>Rientro a Zacisze 4 per i bagagli. Ultimo salto ai mercatini per <i>piernik</i> (biscotti speziati) da portare a casa. Stazione, <b>treno delle 15:00</b>.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============================ CIBI ============================ -->
+    <section class="block block--accent block--invert" id="cibi">
+      <div class="block__kicker block__kicker--on-accent">§ 04 — MANGIARE</div>
+      <h2 class="block__title block__title--on-accent">Cinque cose <em>imperdibili</em></h2>
+
+      <div class="foods">
+        <article class="food">
+          <span class="food__n">01</span>
+          <h3>Obwarzanek</h3>
+          <p>Ciambella di pane intrecciata, bollita, sale e semi di papavero o sesamo. Simbolo di Cracovia.</p>
+          <p class="food__where">Bancarelle blu sparse per il centro</p>
+        </article>
+        <article class="food">
+          <span class="food__n">02</span>
+          <h3>Żurek</h3>
+          <p>Zuppa acida di farina di segale fermentata, salsiccia bianca, uovo, maggiorana. In pagnotta.</p>
+          <p class="food__where">Morskie Oko · ristoranti tipici</p>
+        </article>
+        <article class="food">
+          <span class="food__n">03</span>
+          <h3>Pierogi</h3>
+          <p>Ravioli polacchi: <i>Ruskie</i> (patate e formaggio), carne, o dolci con frutta.</p>
+          <p class="food__where">Centro storico · Pierogarnie</p>
+        </article>
+        <article class="food">
+          <span class="food__n">04</span>
+          <h3>Zapiekanka</h3>
+          <p>La "pizza-baguette": croccante fuori, filante dentro, funghi e formaggio.</p>
+          <p class="food__where">Rotonda di plac Nowy, Kazimierz</p>
+        </article>
+        <article class="food">
+          <span class="food__n">05</span>
+          <h3>Grzane Wino <span class="amp">&</span> Oscypek</h3>
+          <p>Vino caldo speziato con arance e chiodi di garofano, e formaggio di pecora affumicato grigliato con mirtilli.</p>
+          <p class="food__where">Casette dei mercatini, Rynek Główny</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================ COLOPHON ============================ -->
+    <footer class="colophon">
+      <p class="colophon__mark">— ❄ —</p>
+      <p class="colophon__text">
+        <b>KRAKÓW</b> · 29 NOV — 01 DIC · BUON VIAGGIO
+      </p>
+      <p class="colophon__meta">Stampato per Michael · Edizione n. 01</p>
+    </footer>
 
     <script src="script.js"></script>
   </body>

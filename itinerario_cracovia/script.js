@@ -1,36 +1,27 @@
 /**
- * Cracovia Itinerario Natale — interazioni
- * Filtri giorno, ricerca live, dark mode persistente, checklist salvata.
- * Vanilla JS, niente dipendenze.
+ * Kraków — Hallmark Dispatch
+ * Tema, filtro giorno, ricerca live, convertitore PLN↔EUR (tasso fisso 4.41).
+ * Vanilla JS. Nessuna dipendenza.
  */
 (function () {
   'use strict';
 
-  // ---------- riferimenti DOM ----------
+  // ---------- DOM ----------
   const themeToggle = document.getElementById('themeToggle');
   const dayNav = document.getElementById('dayNav');
-  const dayChips = dayNav ? dayNav.querySelectorAll('.day-chip') : [];
-  const dayCards = document.querySelectorAll('.day-card');
+  const dayChips = dayNav ? dayNav.querySelectorAll('.daynav__chip') : [];
+  const dayCards = document.querySelectorAll('.day');
   const searchInput = document.getElementById('searchInput');
   const searchClear = document.getElementById('searchClear');
   const searchResults = document.getElementById('searchResults');
-  const checklist = document.getElementById('checklistList');
-  const checklistCounter = document.getElementById('checklistCounter');
-  const checklistReset = document.getElementById('checklistReset');
 
   // converter
   const plnInput = document.getElementById('plnInput');
   const eurInput = document.getElementById('eurInput');
-  const rateInput = document.getElementById('rateInput');
-  const swapBtn = document.getElementById('swapBtn');
-  const presetBtns = document.querySelectorAll('.converter__preset');
-  const chips = document.querySelectorAll('.converter__chip');
-  let rate = 4.25; // PLN per 1 EUR
-  let lastEdited = 'pln'; // traccia chi ha guidato l'ultimo calcolo
+  const RATE = 4.41; // PLN per 1 EUR (fisso)
+  let lastEdited = 'pln';
 
   const STORAGE_THEME = 'cracovia.theme';
-  const STORAGE_CHECK = 'cracovia.checklist';
-  const STORAGE_RATE = 'cracovia.rate';
   let currentDay = 'all';
   let currentQuery = '';
 
@@ -40,7 +31,6 @@
     setupTheme();
     if (dayChips.length) setupDayNav();
     if (searchInput) setupSearch();
-    if (checklist) setupChecklist();
     if (plnInput) setupConverter();
     checkUrlHash();
   }
@@ -50,32 +40,27 @@
     const saved = localStorage.getItem(STORAGE_THEME);
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isDark = saved === 'dark' || (!saved && prefersDark);
-    if (isDark) document.body.classList.add('dark-mode');
+    if (isDark) document.body.classList.add('dark');
   }
-
   function setupTheme() {
     themeToggle.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.toggle('dark');
       localStorage.setItem(STORAGE_THEME, isDark ? 'dark' : 'light');
     });
   }
 
   // ---------- FILTRO GIORNO ----------
   function setupDayNav() {
-    dayChips.forEach((chip) => {
-      chip.addEventListener('click', () => selectDay(chip));
-    });
+    dayChips.forEach((chip) => chip.addEventListener('click', () => selectDay(chip)));
   }
-
   function selectDay(chip) {
-    dayChips.forEach((c) => c.classList.remove('active'));
-    chip.classList.add('active');
+    dayChips.forEach((c) => c.classList.remove('is-active'));
+    chip.classList.add('is-active');
     currentDay = chip.dataset.day;
     applyFilters();
-    // scroll dolce verso la sezione itinerario
-    const target = document.getElementById('itinerario');
-    if (target && currentDay !== 'all') {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (currentDay !== 'all') {
+      const target = document.getElementById('itinerario');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -83,55 +68,39 @@
   function setupSearch() {
     searchInput.addEventListener('input', handleSearch);
     searchClear.addEventListener('click', clearSearch);
-
-    // espone i testi indicizzati per la ricerca
-    window.__searchIndex = Array.from(
-      document.querySelectorAll('.day-card, .food-card, .airport-card, .ticket-box')
-    ).map((el) => ({
+    window.__searchIndex = Array.from(document.querySelectorAll('.day, .food, .airport__card, .ticket')).map((el) => ({
       el,
       text: el.textContent.toLowerCase(),
-      day: el.dataset.day || (el.closest('.day-card') ? el.closest('.day-card').dataset.day : 'all'),
+      day: el.dataset.day || (el.closest('.day') ? el.closest('.day').dataset.day : 'all'),
     }));
   }
-
   function handleSearch() {
     currentQuery = searchInput.value.trim().toLowerCase();
-    toggleClearButton();
+    toggleClear();
     applyFilters();
     updateSearchCount();
   }
-
   function clearSearch() {
     searchInput.value = '';
     currentQuery = '';
-    toggleClearButton();
+    toggleClear();
     applyFilters();
     updateSearchCount();
     searchInput.focus();
   }
-
-  function toggleClearButton() {
-    searchClear.style.display = searchInput.value ? 'flex' : 'none';
+  function toggleClear() {
+    searchClear.style.display = searchInput.value ? 'inline' : 'none';
   }
-
   function updateSearchCount() {
-    if (!currentQuery) {
-      searchResults.textContent = '';
-      return;
-    }
-    const visible = Array.from(dayCards).filter((c) => !c.classList.contains('is-hidden')).length;
-    const total = window.__searchIndex.length;
-    const matches = window.__searchIndex.filter((item) =>
-      item.text.includes(currentQuery) &&
-      (currentDay === 'all' || item.day === currentDay || item.day === 'all')
+    if (!currentQuery) { searchResults.textContent = ''; return; }
+    const matches = window.__searchIndex.filter((it) =>
+      it.text.includes(currentQuery) && (currentDay === 'all' || it.day === currentDay || it.day === 'all')
     ).length;
     searchResults.textContent =
-      matches === 0
-        ? `Nessun risultato per "${searchInput.value}"`
-        : `${matches} risultat${matches === 1 ? 'o' : 'i'} per "${searchInput.value}"`;
+      matches === 0 ? `Nessun risultato per "${searchInput.value}"` : `${matches} risultat${matches === 1 ? 'o' : 'i'} per "${searchInput.value}"`;
   }
 
-  // ---------- APPLICA FILTRI COMBINATI ----------
+  // ---------- FILTRI COMBINATI ----------
   function applyFilters() {
     dayCards.forEach((card) => {
       const day = card.dataset.day;
@@ -140,33 +109,24 @@
       const queryMatch = !currentQuery || text.includes(currentQuery);
       card.classList.toggle('is-hidden', !(dayMatch && queryMatch));
     });
-
-    // Evidenzia i match testuali nella ricerca
     if (currentQuery) highlightMatches(currentQuery);
     else clearHighlights();
   }
 
-  // ---------- EVIDENZIAZIONE MATCH ----------
+  // ---------- EVIDENZIAZIONE ----------
   function highlightMatches(query) {
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         const parent = node.parentElement;
-        if (
-          !parent ||
-          parent.closest('script, style, .search-results, .day-card.is-hidden')
-        ) {
+        if (!parent || parent.closest('script, style, .search__results, .day.is-hidden')) {
           return NodeFilter.FILTER_REJECT;
         }
-        return node.nodeValue.toLowerCase().includes(query)
-          ? NodeFilter.FILTER_ACCEPT
-          : NodeFilter.FILTER_REJECT;
+        return node.nodeValue.toLowerCase().includes(query) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
       },
     });
-
     const nodes = [];
     let n;
     while ((n = walker.nextNode())) nodes.push(n);
-
     nodes.forEach((node) => {
       const text = node.nodeValue;
       const idx = text.toLowerCase().indexOf(query);
@@ -177,13 +137,10 @@
       mark.className = 'search-mark';
       const after = document.createTextNode(text.slice(idx + query.length));
       const frag = document.createDocumentFragment();
-      frag.appendChild(before);
-      frag.appendChild(mark);
-      frag.appendChild(after);
+      frag.appendChild(before); frag.appendChild(mark); frag.appendChild(after);
       node.parentNode.replaceChild(frag, node);
     });
   }
-
   function clearHighlights() {
     document.querySelectorAll('mark.search-mark').forEach((m) => {
       const text = document.createTextNode(m.textContent);
@@ -191,12 +148,12 @@
     });
   }
 
-  // ---------- HASH (link diretti tipo #day-29) ----------
+  // ---------- HASH ----------
   function checkUrlHash() {
     const hash = window.location.hash;
     if (!hash) return;
     const target = document.querySelector(hash);
-    if (target && target.classList.contains('day-card')) {
+    if (target && target.classList.contains('day')) {
       const day = target.dataset.day;
       const chip = Array.from(dayChips).find((c) => c.dataset.day === day);
       if (chip) selectDay(chip);
@@ -204,182 +161,33 @@
     }
   }
 
-  // ---------- CHECKLIST ----------
-  function setupChecklist() {
-    const saved = loadChecklistState();
-    checklist.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-      cb.checked = !!saved[cb.dataset.check];
-      cb.addEventListener('change', () => {
-        saveChecklistState();
-        updateChecklistCounter();
-      });
-    });
-    updateChecklistCounter();
-    checklistReset.addEventListener('click', resetChecklist);
+  // ---------- CONVERTER PLN <-> EUR (fisso 4.41) ----------
+  function parseLocal(str) {
+    if (str == null) return NaN;
+    const s = String(str).trim().replace(/\s/g, '').replace(',', '.');
+    if (s === '') return NaN;
+    return parseFloat(s);
   }
-
-  function loadChecklistState() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_CHECK) || '{}');
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function saveChecklistState() {
-    const state = {};
-    checklist.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-      state[cb.dataset.check] = cb.checked;
-    });
-    localStorage.setItem(STORAGE_CHECK, JSON.stringify(state));
-  }
-
-  function updateChecklistCounter() {
-    const total = checklist.querySelectorAll('input[type="checkbox"]').length;
-    const done = checklist.querySelectorAll('input[type="checkbox"]:checked').length;
-    checklistCounter.textContent = `${done} / ${total}`;
-    if (total && done === total) {
-      checklistCounter.style.background = 'var(--accent)';
-      checklistCounter.style.color = '#fff';
-      checklistCounter.style.borderColor = 'var(--accent)';
-    } else {
-      checklistCounter.style.background = '';
-      checklistCounter.style.color = '';
-      checklistCounter.style.borderColor = '';
-    }
-  }
-
-  function resetChecklist() {
-    checklist.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-      cb.checked = false;
-    });
-    saveChecklistState();
-    updateChecklistCounter();
-  }
-
-  // ---------- CONVERTER PLN <-> EUR ----------
   function setupConverter() {
-    // tasso salvato (validato, fallback 4.25)
-    const savedRate = parseFloat(localStorage.getItem(STORAGE_RATE));
-    if (isFinite(savedRate) && savedRate > 0) {
-      rate = savedRate;
-    }
-    rateInput.value = rate;
-    markActivePreset();
-
-    // Listener PLN -> EUR
-    plnInput.addEventListener('input', () => {
-      lastEdited = 'pln';
-      updateEurFromPln();
-    });
-    plnInput.addEventListener('change', () => {
-      lastEdited = 'pln';
-      updateEurFromPln();
-    });
-
-    // Listener EUR -> PLN
-    eurInput.addEventListener('input', () => {
-      lastEdited = 'eur';
-      updatePlnFromEur();
-    });
-    eurInput.addEventListener('change', () => {
-      lastEdited = 'eur';
-      updatePlnFromEur();
-    });
-
-    // Tasso personalizzato
-    rateInput.addEventListener('input', onRateChange);
-    rateInput.addEventListener('change', onRateChange);
-
-    presetBtns.forEach((b) => {
-      b.addEventListener('click', () => {
-        rate = parseFloat(b.dataset.preset);
-        rateInput.value = rate;
-        localStorage.setItem(STORAGE_RATE, String(rate));
-        markActivePreset();
-        recalcLast();
-      });
-    });
-
-    // Tap rapidi
-    chips.forEach((c) => {
-      c.addEventListener('click', () => {
-        plnInput.value = c.dataset.pln;
-        lastEdited = 'pln';
-        updateEurFromPln();
-        plnInput.focus();
-        plnInput.select && plnInput.select();
-      });
-    });
-
-    // Swap
-    swapBtn.addEventListener('click', () => {
-      const pv = parseFloat(plnInput.value);
-      const ev = parseFloat(eurInput.value);
-      const safeRate = rate > 0 ? rate : 4.25;
-      if (isFinite(ev)) {
-        plnInput.value = ev * safeRate;
-      } else if (isFinite(pv)) {
-        plnInput.value = '';
-      }
-      updateEurFromPln();
-      lastEdited = 'pln';
-    });
+    plnInput.addEventListener('input', () => { lastEdited = 'pln'; updateEurFromPln(); });
+    eurInput.addEventListener('input', () => { lastEdited = 'eur'; updatePlnFromEur(); });
   }
-
-  function onRateChange() {
-    const v = parseFloat(rateInput.value);
-    if (isFinite(v) && v > 0) {
-      rate = v;
-      localStorage.setItem(STORAGE_RATE, String(rate));
-      markActivePreset();
-      recalcLast();
-    }
-  }
-
-  function recalcLast() {
-    if (lastEdited === 'pln') updateEurFromPln();
-    else updatePlnFromEur();
-  }
-
   function updateEurFromPln() {
-    const v = parseFloat(plnInput.value);
-    const safeRate = rate > 0 ? rate : 4.25;
-    if (!isFinite(v) || v === 0) {
-      eurInput.value = '';
-      return;
-    }
-    eurInput.value = formatNum(v / safeRate);
+    const v = parseLocal(plnInput.value);
+    if (!isFinite(v) || v === 0) { eurInput.value = ''; return; }
+    eurInput.value = formatNum(v / RATE);
   }
-
   function updatePlnFromEur() {
-    const v = parseFloat(eurInput.value);
-    const safeRate = rate > 0 ? rate : 4.25;
-    if (!isFinite(v) || v === 0) {
-      plnInput.value = '';
-      return;
-    }
-    plnInput.value = formatNum(v * safeRate);
+    const v = parseLocal(eurInput.value);
+    if (!isFinite(v) || v === 0) { plnInput.value = ''; return; }
+    plnInput.value = formatNum(v * RATE);
   }
-
   function formatNum(n) {
     if (!isFinite(n)) return '';
-    return n
-      .toFixed(2)
-      .replace('.', ',')
-      .replace(/,00$/, '');
-  }
-
-  function markActivePreset() {
-    presetBtns.forEach((b) => {
-      b.classList.toggle('is-active', parseFloat(b.dataset.preset) === rate);
-    });
+    return n.toFixed(2).replace('.', ',').replace(/,00$/, '');
   }
 
   // ---------- GO ----------
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
