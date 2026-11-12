@@ -7,17 +7,17 @@
    ============================================================ */
 
 :root {
-  --paper:      #F2F6FA;   /* bianco freddo / ghiaccio */
-  --paper-2:    #E4ECF3;   /* azzurro nebbia */
-  --ink:        #14233A;   /* blu notte profondo */
-  --ink-2:      #4A6178;   /* grigio-azzurro */
-  --red:        #2E5C8A;   /* -> diventa blu reale (accento primario) */
-  --red-deep:   #1B3D5C;
-  --pine:       #3C6E8F;   /* -> azzurro acciaio (secondario) */
-  --pine-2:     #5A8AAB;
-  --gold:       #6B8FAE;   /* -> azzurro perla (accento soft) */
-  --gold-2:     #9FB9CC;
-  --rule:       #14233A;
+  --paper:      #F2E8DA;   /* crema chiaro (paper) */
+  --paper-2:    #E6DCC9;   /* crema più scuro */
+  --ink:        #3B2418;   /* marrone scuro caldo (ink) */
+  --ink-2:      #6B5240;   /* marrone medio */
+  --red:        #3B2418;   /* accent primario = marrone scuro */
+  --red-deep:   #241510;
+  --pine:       #3B2418;   /* accent secondario = marrone scuro */
+  --pine-2:     #6B5240;
+  --gold:       #8EC5FF;   /* accent = azzurro chiaro */
+  --gold-2:     #A9D2FF;
+  --rule:       #3B2418;   /* bordi netti marrone */
 
   --serif:  'Playfair Display', Georgia, serif;
   --mono:   'JetBrains Mono', ui-monospace, monospace;
@@ -26,19 +26,19 @@
   --rule-px: 1.5px;
 }
 
-/* ====== DARK MODE (notte polare fredda) ====== */
+/* ====== DARK MODE (sfondo marrone scuro, testo crema, azzurro come accento) ====== */
 body.dark {
-  --paper:    #0E1A2A;
-  --paper-2:  #152539;
-  --ink:      #E8F0F7;
-  --ink-2:    #9BB1C6;
-  --red:      #6FA3D1;
-  --red-deep: #2E5C8A;
-  --pine:     #5A8AAB;
-  --pine-2:   #7BA4C4;
-  --gold:     #9FB9CC;
-  --gold-2:   #BFD3E2;
-  --rule:     #E8F0F7;
+  --paper:    #1F140D;   /* sfondo marrone scuro */
+  --paper-2:  #2C1E15;
+  --ink:      #F2E8DA;   /* testo crema */
+  --ink-2:    #C9BBA4;
+  --red:      #F2E8DA;   /* accento primario in dark = crema (per eyebrow, tag) */
+  --red-deep: #8EC5FF;   /* varianti profonde = azzurro */
+  --pine:     #8EC5FF;   /* blocco cibi in dark = azzurro (per diversificare dal convertitore) */
+  --pine-2:   #A9D2FF;
+  --gold:     #8EC5FF;   /* accento = azzurro */
+  --gold-2:   #A9D2FF;
+  --rule:     #F2E8DA;   /* bordi netti crema */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -76,7 +76,7 @@ body.dark em { color: var(--gold); }
 .masthead {
   background: var(--paper);
   border-bottom: var(--rule-px) solid var(--rule);
-  padding: 0 0 32px;
+  padding: 0 0 18px;
 }
 
 .masthead__bar {
@@ -110,7 +110,7 @@ body.dark .theme-toggle__moon { display: inline; }
 .theme-toggle:hover { background: var(--ink); color: var(--paper); }
 
 .masthead__hero {
-  padding: 40px var(--gutter) 28px;
+  padding: 24px var(--gutter) 14px;
   text-align: center;
 }
 
@@ -120,7 +120,7 @@ body.dark .theme-toggle__moon { display: inline; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--red);
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .masthead__title {
@@ -266,15 +266,43 @@ body.dark mark.search-mark { background: var(--gold); color: var(--paper); }
 .daynav__chip.is-active b { color: var(--paper); }
 
 /* ============================================================
+   VISTE (SPA — show/hide via classe .view)
+   ============================================================ */
+.view { display: none; }
+.view.is-current { display: block; }
+
+/* La ricerca è visibile solo nella vista Itinerario */
+body[data-view]:not([data-view="itinerario"]) .search,
+body[data-view]:not([data-view="itinerario"]) .search__results { display: none; }
+
+/* ============================================================
    BLOCK (generico)
    ============================================================ */
 .block {
-  padding: 44px var(--gutter) 48px;
+  padding: 20px var(--gutter) 48px;
   border-bottom: var(--rule-px) solid var(--rule);
 }
 
 .block--accent { background: var(--red); color: var(--paper); border-bottom-color: var(--red-deep); }
-.block--invert { background: var(--pine); color: var(--paper); border-bottom-color: #0B1B2B; }
+.block--invert { background: var(--pine); color: var(--paper); border-bottom-color: #241510; }
+
+/* In dark mode i blocchi "evidenza" restano scuri con testo crema (inversione sicura) */
+body.dark .block--accent { background: #1F140D; color: #F2E8DA; border-bottom-color: #8EC5FF; }
+body.dark .block--invert { background: #2C1E15; color: #F2E8DA; border-bottom-color: #8EC5FF; }
+body.dark .block--accent .block__title,
+body.dark .block--invert .block__title { color: #F2E8DA; }
+body.dark .block--accent .block__title em,
+body.dark .block--invert .block__title em { color: #8EC5FF; }
+body.dark .block--accent .block__kicker,
+body.dark .block--invert .block__kicker { color: #A9D2FF; }
+body.dark .block--accent .block__sub,
+body.dark .block--invert .block__sub { color: rgba(242,232,218,0.85); }
+body.dark .conv__field input { color: #F2E8DA; }
+body.dark .conv__field input::placeholder { color: rgba(242,232,218,0.35); }
+body.dark .conv__row { border-bottom-color: rgba(242,232,218,0.25); }
+body.dark .conv__row:last-of-type { border-bottom: none; }
+body.dark .conv__cur,
+body.dark .conv__row label { color: #8EC5FF; }
 
 .block__kicker {
   font-family: var(--mono);
@@ -362,16 +390,28 @@ body.dark mark.search-mark { background: var(--gold); color: var(--paper); }
 }
 .ticket__price {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 10px;
+  gap: 8px 10px;
   padding: 16px 20px;
   border-bottom: var(--rule-px) dashed var(--rule);
   background: var(--gold-2);
   color: var(--ink);
 }
+.ticket__tag {
+  flex-basis: 100%;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 2px;
+}
 .ticket__price b { font-family: var(--serif); font-weight: 800; font-size: 34px; letter-spacing: -0.02em; }
 .ticket__price span { font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em; }
 body.dark .ticket__price { background: var(--gold); color: var(--paper); }
+body.dark .ticket__tag { color: var(--gold-2); }
 
 .ticket__how {
   padding: 14px 20px 18px 36px;
@@ -435,6 +475,9 @@ body.dark .ticket__price { background: var(--gold); color: var(--paper); }
 }
 .day:first-of-type { margin-top: 28px; }
 .day.is-hidden { display: none; }
+.food.is-hidden,
+.airport__card.is-hidden,
+.ticket.is-hidden { display: none; }
 
 .day__head {
   display: flex;
@@ -490,7 +533,12 @@ body.dark .ticket__price { background: var(--gold); color: var(--paper); }
   padding: 18px 20px;
   border-bottom: 1px solid var(--rule);
 }
-body.dark .slot--food { background: rgba(212,164,55,0.18); }
+/* In dark mode lo slot cibo diventa azzurro pieno con testo marrone (inversione netta) */
+body.dark .slot--food { background: #8EC5FF; }
+body.dark .slot--food .slot__t { color: #3B2418; }
+body.dark .slot--food p { color: #3B2418; }
+body.dark .slot--food .tip { color: #3B2418; }
+body.dark .slot--food b { color: #241510; }
 
 .slot__t {
   display: block;
@@ -507,7 +555,6 @@ body.dark .slot--food { background: rgba(212,164,55,0.18); }
 .slot p { font-size: 15px; color: var(--ink); margin-bottom: 4px; line-height: 1.65; }
 .slot b { font-weight: 700; }
 .slot--food b { color: var(--red-deep); }
-body.dark .slot--food b { color: var(--gold); }
 
 .tip {
   font-family: var(--serif);
@@ -565,23 +612,23 @@ body.dark .slot--food b { color: var(--gold); }
    COLOPHON (footer)
    ============================================================ */
 .colophon {
-  padding: 40px var(--gutter) 48px;
+  padding: 22px var(--gutter) 26px;
   text-align: center;
   background: var(--paper);
 }
 .colophon__mark {
   font-family: var(--serif);
-  font-size: 26px;
+  font-size: 22px;
   color: var(--red);
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 .colophon__text {
   font-family: var(--serif);
   font-weight: 800;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.06em;
   color: var(--ink);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .colophon__meta {
   font-family: var(--mono);
@@ -589,6 +636,70 @@ body.dark .slot--food b { color: var(--gold); }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-2);
+}
+
+/* ============================================================
+   TABBAR (bottom navigation — SPA views)
+   Stile editoriale: bordi sottili, JetBrains Mono, colori adattivi.
+   ============================================================ */
+body { padding-bottom: 76px; } /* spazio per la tabbar fissa */
+
+.tabbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 60;
+  display: flex;
+  background: var(--paper);
+  border-top: var(--rule-px) solid var(--rule);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+  font-family: var(--mono);
+}
+.tabbar__btn {
+  flex: 1;
+  border: none;
+  border-right: var(--rule-px) solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 6px 16px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.tabbar__btn:last-child { border-right: none; }
+.tabbar__n {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  opacity: 0.55;
+}
+.tabbar__label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tabbar__btn:hover { background: var(--paper-2); color: var(--ink); }
+.tabbar__btn.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.tabbar__btn.is-active .tabbar__n { opacity: 0.7; }
+
+/* Dark mode: tabbar follows night palette */
+body.dark .tabbar { background: var(--paper); border-top-color: var(--rule); box-shadow: 0 -2px 14px rgba(0,0,0,0.35); }
+body.dark .tabbar__btn { background: var(--paper); color: var(--ink-2); border-right-color: var(--rule); }
+body.dark .tabbar__btn:hover { background: var(--paper-2); color: var(--ink); }
+body.dark .tabbar__btn.is-active { background: var(--ink); color: var(--paper); }
+
+/* Su viewport ampio limita la larghezza della tabbar per non dominare */
+@media (min-width: 760px) {
+  body { padding-bottom: 80px; }
+  .tabbar { max-width: 760px; left: 50%; transform: translateX(-50%); border-left: var(--rule-px) solid var(--rule); border-right: var(--rule-px) solid var(--rule); border-bottom: var(--rule-px) solid var(--rule); border-radius: 0; }
 }
 
 /* ============================================================

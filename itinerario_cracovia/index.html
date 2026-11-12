@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#2E5C8A" />
+    <meta name="theme-color" content="#3B2418" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Cracovia — 29 nov / 1 dic</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,14 +26,11 @@
       </div>
 
       <div class="masthead__hero">
-        <p class="masthead__eyebrow">A WINTER DISPATCH · 29.11 — 01.12</p>
+        <p class="masthead__eyebrow">29.11 — 01.12</p>
         <h1 class="masthead__title">
-          Kraków<span class="masthead__title-sub">Christmas Markets</span>
+          Kraków
         </h1>
-        <p class="masthead__lede">
-          Tre giorni a piedi, tra centre storico, Wawel e Kazimierz.
-          Cucina tipica, vin brulé e l'oro delle casette di legno.
-        </p>
+
       </div>
 
       <a class="masthead__stamp" href="https://www.google.com/maps/search/?api=1&query=Zacisze+4+Krakow" target="_blank" rel="noopener">
@@ -52,24 +49,17 @@
     </div>
     <p class="search__results" id="searchResults"></p>
 
-    <!-- ============================ DAY NAV ============================ -->
-    <nav class="daynav" id="dayNav" aria-label="Giorni">
-      <button class="daynav__chip is-active" data-day="all">TUTTI</button>
-      <button class="daynav__chip" data-day="29"><b>29</b> DOM</button>
-      <button class="daynav__chip" data-day="30"><b>30</b> LUN</button>
-      <button class="daynav__chip" data-day="1"><b>01</b> MAR</button>
-    </nav>
-
     <!-- ============================ AIRPORT ============================ -->
-    <section class="block" id="aeroporto">
-      <div class="block__kicker">§ 01 — TRASFERIMENTI</div>
+    <section class="block view" id="aeroporto" data-view="trasferimenti">
+      <div class="block__kicker">TRASFERIMENTI</div>
       <h2 class="block__title">Aeroporto <span class="amp">&</span> Centro</h2>
       <div class="airport">
         <article class="airport__card airport__card--andata">
           <div class="airport__tag">ANDATA · DOM 29</div>
           <h3>LOT → GŁÓWNY</h3>
           <ul>
-            <li>Atterraggio <b>08:20</b></li>
+            <li>Partenza <b>08:20</b></li>
+            <li>Atterraggio <b>10:05</b></li>
             <li>Treno regionale <i>17–20 min</i></li>
             <li>Poi 5–7 min a piedi → Zacisze 4</li>
           </ul>
@@ -79,6 +69,7 @@
           <h3>GŁÓWNY → LOT</h3>
           <ul>
             <li>Partenza volo <b>15:00</b></li>
+            <li>Atterraggio <b>16:55</b></li>
             <li>Treni ogni <i>~30 min</i></li>
             <li>Percorso inverso Zacisze 4 → Lotnisko</li>
           </ul>
@@ -86,7 +77,10 @@
       </div>
 
       <div class="ticket">
-        <div class="ticket__price"><b>17 PLN</b><span>~ 4 €</span></div>
+        <div class="ticket__price">
+          <span class="ticket__tag">BIGLIETTO TRENO · ANDATA/RITORNO</span>
+          <b>17 PLN</b><span>~ 4 €</span>
+        </div>
         <ol class="ticket__how">
           <li>Macchinette in aeroporto/stazione</li>
           <li>App Koleje Małopolskie o Jakdojade</li>
@@ -96,8 +90,7 @@
     </section>
 
     <!-- ============================ CONVERTER ============================ -->
-    <section class="block block--accent" id="convertitore">
-      <div class="block__kicker block__kicker--on-accent">§ 02 — VALUTA</div>
+    <section class="block block--accent view" id="convertitore" data-view="valuta">
       <h2 class="block__title block__title--on-accent">PLN ↔ EUR</h2>
       <p class="block__sub block__sub--on-accent">Tasso fisso · 1 € = 4,41 PLN</p>
 
@@ -120,9 +113,17 @@
     </section>
 
     <!-- ============================ ITINERARIO ============================ -->
-    <section class="block" id="itinerario">
-      <div class="block__kicker">§ 03 — ITINERARIO</div>
+    <section class="block view" id="itinerario" data-view="itinerario">
+      <div class="block__kicker">ITINERARIO</div>
       <h2 class="block__title">Tre giorni, <em>a piedi</em></h2>
+
+      <!-- DAY NAV (visibile solo in questa vista) -->
+      <nav class="daynav" id="dayNav" aria-label="Giorni">
+        <button class="daynav__chip is-active" data-day="all">TUTTI</button>
+        <button class="daynav__chip" data-day="29"><b>29</b> DOM</button>
+        <button class="daynav__chip" data-day="30"><b>30</b> LUN</button>
+        <button class="daynav__chip" data-day="1"><b>01</b> MAR</button>
+      </nav>
 
       <!-- GIORNO 29 -->
       <article class="day" data-day="29" id="day-29">
@@ -204,8 +205,8 @@
     </section>
 
     <!-- ============================ CIBI ============================ -->
-    <section class="block block--accent block--invert" id="cibi">
-      <div class="block__kicker block__kicker--on-accent">§ 04 — MANGIARE</div>
+    <section class="block block--accent block--invert view" id="cibi" data-view="mangiare">
+      <div class="block__kicker block__kicker--on-accent">MANGIARE</div>
       <h2 class="block__title block__title--on-accent">Cinque cose <em>imperdibili</em></h2>
 
       <div class="foods">
@@ -241,6 +242,26 @@
         </article>
       </div>
     </section>
+
+    <!-- ============================ TABBAR (bottom nav) ============================ -->
+    <nav class="tabbar" id="tabbar" aria-label="Viste">
+      <button class="tabbar__btn is-active" data-target="itinerario" type="button">
+        <span class="tabbar__n">01</span>
+        <span class="tabbar__label">Itinerario</span>
+      </button>
+      <button class="tabbar__btn" data-target="mangiare" type="button">
+        <span class="tabbar__n">02</span>
+        <span class="tabbar__label">Mangiare</span>
+      </button>
+      <button class="tabbar__btn" data-target="trasferimenti" type="button">
+        <span class="tabbar__n">03</span>
+        <span class="tabbar__label">Trasferimenti</span>
+      </button>
+      <button class="tabbar__btn" data-target="valuta" type="button">
+        <span class="tabbar__n">04</span>
+        <span class="tabbar__label">Valuta</span>
+      </button>
+    </nav>
 
     <!-- ============================ COLOPHON ============================ -->
     <footer class="colophon">

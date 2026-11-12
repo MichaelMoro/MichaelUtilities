@@ -1,6 +1,7 @@
 /**
  * Kraków — Hallmark Dispatch
  * Tema, filtro giorno, ricerca live, convertitore PLN↔EUR (tasso fisso 4.41).
+ * SPA: 4 viste gestite da tabbar in basso.
  * Vanilla JS. Nessuna dipendenza.
  */
 (function () {
@@ -15,6 +16,13 @@
   const searchClear = document.getElementById('searchClear');
   const searchResults = document.getElementById('searchResults');
 
+  // viste / tabbar
+  const tabbar = document.getElementById('tabbar');
+  const tabBtns = tabbar ? tabbar.querySelectorAll('.tabbar__btn') : [];
+  const views = Array.from(document.querySelectorAll('.view'));
+  const VIEW_FROM_ID = { itinerario: 'itinerario', cibi: 'mangiare', aeroporto: 'trasferimenti', convertitore: 'valuta' };
+  const ID_FROM_VIEW = { itinerario: 'itinerario', mangiare: 'cibi', trasferimenti: 'aeroporto', valuta: 'convertitore' };
+
   // converter
   const plnInput = document.getElementById('plnInput');
   const eurInput = document.getElementById('eurInput');
@@ -22,13 +30,16 @@
   let lastEdited = 'pln';
 
   const STORAGE_THEME = 'cracovia.theme';
+  const STORAGE_VIEW = 'cracovia.view';
   let currentDay = 'all';
   let currentQuery = '';
+  let currentView = 'itinerario';
 
   // ---------- INIT ----------
   function init() {
     loadThemePreference();
     setupTheme();
+    if (tabBtns.length) setupTabbar();
     if (dayChips.length) setupDayNav();
     if (searchInput) setupSearch();
     if (plnInput) setupConverter();
@@ -49,6 +60,29 @@
     });
   }
 
+  // ---------- VISTE / TABBAR ----------
+  function setupTabbar() {
+    tabBtns.forEach((btn) => btn.addEventListener('click', () => switchView(btn.dataset.target, true)));
+  }
+  function switchView(view, scrollUp) {
+    if (!ID_FROM_VIEW[view]) view = 'itinerario';
+    currentView = view;
+    // marca tab attiva
+    tabBtns.forEach((b) => b.classList.toggle('is-active', b.dataset.target === view));
+    // mostra solo la vista corrente
+    views.forEach((v) => v.classList.toggle('is-current', v.dataset.view === view));
+    // espone la vista corrente sul body (per mostrare/nascondere la search via CSS)
+    document.body.dataset.view = view;
+    // pulisci highlight se stiamo cambiando vista senza query
+    if (!currentQuery) clearHighlights();
+    // se lasciamo l'itinerario, pulisce la query così la ricerca non resta "sospesa"
+    if (view !== 'itinerario' && currentQuery) {
+      // non azzeriamo la query (potrebbe servire tornando indietro), ma chiudiamo la UI
+    }
+    localStorage.setItem(STORAGE_VIEW, view);
+    if (scrollUp) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   // ---------- FILTRO GIORNO ----------
   function setupDayNav() {
     dayChips.forEach((chip) => chip.addEventListener('click', () => selectDay(chip)));
@@ -58,10 +92,6 @@
     chip.classList.add('is-active');
     currentDay = chip.dataset.day;
     applyFilters();
-    if (currentDay !== 'all') {
-      const target = document.getElementById('itinerario');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }
 
   // ---------- RICERCA ----------
@@ -72,18 +102,35 @@
       el,
       text: el.textContent.toLowerCase(),
       day: el.dataset.day || (el.closest('.day') ? el.closest('.day').dataset.day : 'all'),
+      view: el.closest('.view') ? el.closest('.view').dataset.view : 'itinerario',
     }));
   }
   function handleSearch() {
     currentQuery = searchInput.value.trim().toLowerCase();
     toggleClear();
-    applyFilters();
+    if (currentQuery) {
+      // Ricerca globale: trova prima vista con match e portaci l'utente
+      const firstMatchView = window.__searchIndex.find((it) =>
+        it.text.includes(currentQuery) && (currentDay === 'all' || it.day === currentDay || it.day === 'all')
+      );
+      if (firstMatchView && firstMatchView.view !== currentView) {
+        switchView(firstMatchView.view, false);
+      }
+      // Se la query matcha solo in altre viste oltre la corrente, va bene:
+      // mostriamo risultati nella vista corrente (se ne ha) e l'utente può navigare.
+      applyFilters();
+      highlightAcrossViews(currentQuery);
+    } else {
+      clearHighlights();
+      applyFilters();
+    }
     updateSearchCount();
   }
   function clearSearch() {
     searchInput.value = '';
     currentQuery = '';
     toggleClear();
+    clearHighlights();
     applyFilters();
     updateSearchCount();
     searchInput.focus();
@@ -101,6 +148,8 @@
   }
 
   // ---------- FILTRI COMBINATI ----------
+  // Applica filtro giorno + query alla vista corrente (day cards) e a
+  // foods/airport/ticket: con query attiva, nasconde quelli che non matchano.
   function applyFilters() {
     dayCards.forEach((card) => {
       const day = card.dataset.day;
@@ -109,16 +158,23 @@
       const queryMatch = !currentQuery || text.includes(currentQuery);
       card.classList.toggle('is-hidden', !(dayMatch && queryMatch));
     });
-    if (currentQuery) highlightMatches(currentQuery);
-    else clearHighlights();
+    // foods / airport / ticket: se c'è query, nascondi i blocchi che non matchano
+    document.querySelectorAll('.food, .airport__card, .ticket').forEach((el) => {
+      const text = el.textContent.toLowerCase();
+      el.classList.toggle('is-hidden', currentQuery ? !text.includes(currentQuery) : false);
+    });
   }
 
-  // ---------- EVIDENZIAZIONE ----------
-  function highlightMatches(query) {
+  // ---------- EVIDENZIAZIONE (su tutte le viste, anche nascoste) ----------
+  function highlightAcrossViews(query) {
+    clearHighlights();
+    // Evidenzia in tutte le viste (anche non correnti) così, se l'utente
+    // cambia tab, trova i match già pronti.
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         const parent = node.parentElement;
-        if (!parent || parent.closest('script, style, .search__results, .day.is-hidden')) {
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        if (parent.closest('script, style, .search__results, .day.is-hidden, .food.is-hidden, .airport__card.is-hidden, .ticket.is-hidden, .tabbar')) {
           return NodeFilter.FILTER_REJECT;
         }
         return node.nodeValue.toLowerCase().includes(query) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
@@ -151,13 +207,36 @@
   // ---------- HASH ----------
   function checkUrlHash() {
     const hash = window.location.hash;
-    if (!hash) return;
-    const target = document.querySelector(hash);
-    if (target && target.classList.contains('day')) {
-      const day = target.dataset.day;
+    // hash speciale: #day-29 / #day-30 / #day-1
+    const dayMatch = hash && hash.match(/^#day-(\d+)$/);
+    if (dayMatch) {
+      const day = dayMatch[1];
       const chip = Array.from(dayChips).find((c) => c.dataset.day === day);
       if (chip) selectDay(chip);
-      setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      switchView('itinerario', false);
+      setTimeout(() => {
+        const target = document.getElementById('day-' + day);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 120);
+      return;
+    }
+    // hash vista: #mangiare / #trasferimenti / #valuta / #itinerario
+    if (hash) {
+      const v = hash.slice(1);
+      if (ID_FROM_VIEW[v]) {
+        switchView(v, false);
+        return;
+      }
+      // target diretto via id (es. #convertitore)
+      const target = document.querySelector(hash);
+      if (target && target.classList.contains('view')) {
+        switchView(target.dataset.view, false);
+      }
+    }
+    // default o vista salvata
+    if (!hash) {
+      const saved = localStorage.getItem(STORAGE_VIEW);
+      switchView(saved && ID_FROM_VIEW[saved] ? saved : 'itinerario', false);
     }
   }
 

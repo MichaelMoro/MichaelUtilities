@@ -3,186 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michael Utilities - Dashboard</title>
+    <title>Michael Utilities · Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ============================================================
+           Michael Utilities — Dashboard
+           Stile Tremor / Shadcn / Linear:
+           - Sfondo #F8FAFC, card bianche #FFFFFF, bordi 1px sottili
+           - Topbar glassmorphism (backdrop-blur)
+           - Griglia Bento bilanciata
+           - Font con tabular-nums per allineamento cifre
+           - Radius 12px card / 8px bottoni / pill badge
+           - Spaziature multipli di 4/8px
+           ============================================================ */
+
+        :root {
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --surface-2: #F1F5F9;
+            --surface-hover: #F8FAFC;
+            --border: #E2E8F0;
+            --border-strong: #CBD5E1;
+
+            --ink: #0F172A;
+            --ink-2: #334155;
+            --ink-3: #64748B;
+            --ink-4: #94A3B8;
+
+            --accent: #4F46E5;     /* indigo */
+            --accent-soft: #EEF2FF;
+            --emerald: #10B981;
+            --emerald-soft: #ECFDF5;
+            --coral: #F43F5E;
+            --coral-soft: #FFF1F2;
+            --amber: #F59E0B;
+            --amber-soft: #FFFBEB;
+
+            --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+            --shadow-md: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+            --shadow-lg: 0 4px 12px rgba(15,23,42,0.06), 0 2px 4px rgba(15,23,42,0.04);
+            --shadow-xl: 0 12px 32px rgba(15,23,42,0.08), 0 4px 8px rgba(15,23,42,0.04);
+
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-pill: 999px;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: -0.01em;
         }
 
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 50px;
-            margin-top: 30px;
-        }
+        .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
 
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        /* ====== TOPBAR (glassmorphism) ====== */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(248,250,252,0.72);
+            backdrop-filter: saturate(180%) blur(16px);
+            -webkit-backdrop-filter: saturate(180%) blur(16px);
+            border-bottom: 1px solid var(--border);
         }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .topbar__inner {
             max-width: 1200px;
-            width: 100%;
-            padding: 20px;
-        }
-
-        .app-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
+            margin: 0 auto;
+            padding: 14px 24px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+        .brand__mark {
+            width: 30px; height: 30px;
+            border-radius: var(--radius-sm);
+            background: var(--ink);
+            color: #fff;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 250px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: -0.04em;
         }
+        .brand__sep { color: var(--ink-4); font-weight: 400; }
+        .brand__sub { color: var(--ink-3); font-weight: 500; font-size: 0.85rem; }
 
-        .app-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        .topbar__meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8125rem;
+            color: var(--ink-3);
         }
-
-        .app-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-
-        .app-title {
-            font-size: 1.8rem;
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 15px;
-            color: #333;
+            background: var(--emerald-soft);
+            color: var(--emerald);
+            border: 1px solid rgba(16,185,129,0.18);
+        }
+        .badge__dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--emerald);
         }
 
+        /* ====== HEADER (titolo + sottotitolo + azioni) ====== */
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .pagehead {
+            padding: 40px 0 28px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .pagehead__title {
+            font-size: clamp(28px, 4.5vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            line-height: 1.1;
+        }
+        .pagehead__title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+        .pagehead__sub {
+            margin-top: 8px;
+            font-size: 0.95rem;
+            color: var(--ink-3);
+            font-weight: 400;
+            max-width: 50ch;
+        }
+
+        /* ====== DASHBOARD GRID (Bento) ====== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .grid .app-card:nth-child(1) { grid-column: span 2; }  /* Fuerteventura large */
+        .grid .app-card:nth-child(3) { grid-column: span 1; }  /* Cracovia */
+        .grid .app-card:nth-child(4) { grid-column: span 3; }  /* placeholder full width */
+
+        .app-card {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-decoration: none;
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+            overflow: hidden;
+        }
+        .app-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            border-color: var(--border-strong);
+        }
+        .app-card::after {
+            content: "→";
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            font-size: 1.1rem;
+            color: var(--ink-4);
+            transition: transform .25s ease, color .25s ease;
+        }
+        .app-card:hover::after { transform: translateX(3px); color: var(--ink); }
+
+        .app-card__top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .app-icon {
+            width: 40px; height: 40px;
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            background: var(--surface-2);
+        }
+        .app-tag {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            padding: 3px 8px;
+            background: var(--surface-2);
+            border-radius: var(--radius-pill);
+        }
+        .app-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
         .app-description {
-            font-size: 1rem;
-            color: #666;
-            line-height: 1.5;
+            font-size: 0.875rem;
+            color: var(--ink-3);
+            line-height: 1.55;
+            max-width: 42ch;
         }
+        .app-card__footer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--ink-4);
+        }
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: var(--radius-pill);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            background: var(--surface-2);
+            color: var(--ink-2);
+        }
+        .pill--indigo { background: var(--accent-soft); color: var(--accent); }
+        .pill--emerald { background: var(--emerald-soft); color: var(--emerald); }
+        .pill--amber { background: var(--amber-soft); color: var(--amber); }
 
-        .app-card.itinerario {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
-
-        .app-card.cracovia {
-            background: linear-gradient(135deg, #DCE6F0 0%, #9FB9CC 100%);
-        }
-
-        .app-card.team-generator {
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-        }
+        /* Tint accents per card (topbar colorata sottile) */
+        .app-card.itinerario .app-icon { background: linear-gradient(135deg, #FFE7CC, #FFC4A3); }
+        .app-card.cracovia .app-icon { background: linear-gradient(135deg, #E8F1FF, #B8D9FF); }
+        .app-card.team-generator .app-icon { background: linear-gradient(135deg, #DDEBFF, #BBD5FF); }
+        .app-card.placeholder .app-icon { background: var(--surface-2); }
 
         .app-card.placeholder {
-            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
-            border: 2px dashed #999;
-            opacity: 0.6;
+            border: 1px dashed var(--border-strong);
+            background: transparent;
+            box-shadow: none;
         }
-
         .app-card.placeholder:hover {
-            opacity: 0.8;
+            background: var(--surface);
+            border-style: dashed;
+            border-color: var(--accent);
+            transform: none;
         }
+        .app-card.placeholder::after { content: ""; }
 
+        /* ====== FOOTER ====== */
         footer {
-            margin-top: auto;
-            padding: 20px;
-            color: white;
-            text-align: center;
-            opacity: 0.8;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 28px 24px 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8125rem;
+            color: var(--ink-4);
+            flex-wrap: wrap;
+            gap: 12px;
         }
+        footer a { color: var(--ink-3); text-decoration: none; }
+        footer a:hover { color: var(--ink); }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header p {
-                font-size: 1rem;
-            }
-
-            .dashboard {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .app-card {
-                padding: 30px;
-                min-height: 200px;
-            }
-
-            .app-icon {
-                font-size: 3rem;
-            }
-
-            .app-title {
-                font-size: 1.5rem;
-            }
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .grid .app-card:nth-child(1) { grid-column: span 2; }
+            .grid .app-card:nth-child(3) { grid-column: span 1; }
+            .grid .app-card:nth-child(4) { grid-column: span 2; }
+        }
+        @media (max-width: 620px) {
+            .grid { grid-template-columns: 1fr; }
+            .grid .app-card:nth-child(1),
+            .grid .app-card:nth-child(3),
+            .grid .app-card:nth-child(4) { grid-column: span 1; }
+            .pagehead { padding: 28px 0 20px; }
+            .topbar__inner { padding: 12px 16px; }
+            .page { padding: 0 16px; }
+            footer { padding: 20px 16px 28px; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚀 Michael Utilities</h1>
-        <p>La tua collezione di applicazioni utili</p>
-    </div>
-
-    <div class="dashboard">
-        <a href="itinerario_fuerteventura/itinerario.html" class="app-card itinerario">
-            <div class="app-icon">🏖️</div>
-            <div class="app-title">Itinerario Fuerteventura</div>
-            <div class="app-description">Pianifica il tuo viaggio perfetto alle Canarie</div>
-        </a>
-
-        <a href="team_generator/team_generator.html" class="app-card team-generator">
-            <div class="app-icon">👥</div>
-            <div class="app-title">Team Generator</div>
-            <div class="app-description">Genera squadre bilanciate in modo automatico</div>
-        </a>
-
-        <a href="itinerario_cracovia/index.html" class="app-card cracovia">
-            <div class="app-icon">❄️</div>
-            <div class="app-title">Itinerario Cracovia</div>
-            <div class="app-description">Hallmark Dispatch · mercatini di Natale 29 nov – 1 dic · convertitore PLN/EUR</div>
-        </a>
-
-        <!-- Placeholder per future applicazioni -->
-        <div class="app-card placeholder">
-            <div class="app-icon">➕</div>
-            <div class="app-title">Prossimamente</div>
-            <div class="app-description">Nuove utility in arrivo...</div>
+    <!-- ============ TOPBAR ============ -->
+    <div class="topbar">
+        <div class="topbar__inner">
+            <div class="brand">
+                <span class="brand__mark">M</span>
+                <span>Michael Utilities</span>
+                <span class="brand__sep">/</span>
+                <span class="brand__sub">Dashboard</span>
+            </div>
+            <div class="topbar__meta">
+                <span class="badge"><span class="badge__dot"></span>Online</span>
+                <span class="num">v1.0 · 2026</span>
+            </div>
         </div>
     </div>
 
+    <main class="page">
+        <!-- ============ PAGE HEAD ============ -->
+        <header class="pagehead">
+            <div>
+                <h1 class="pagehead__title">Le tue <em>applicazioni</em></h1>
+                <p class="pagehead__sub">Una collezione di utility pensate per viaggi, squadre e quotidianità. Scegli un'app per iniziare.</p>
+            </div>
+        </header>
+
+        <!-- ============ APP GRID (Bento) ============ -->
+        <section class="grid" aria-label="Applicazioni">
+            <a href="itinerario_fuerteventura/itinerario.html" class="app-card itinerario">
+                <div class="app-card__top">
+                    <div class="app-icon">🏖️</div>
+                    <span class="app-tag">Itinerario</span>
+                </div>
+                <div>
+                    <div class="app-title">Itinerario Fuerteventura</div>
+                    <div class="app-description">Pianifica il tuo viaggio perfetto alle Canarie, giorno per giorno.</div>
+                </div>
+                <div class="app-card__footer">
+                    <span class="pill pill--amber">8 giorni</span>
+                    <span class="pill">Agosto 2026</span>
+                </div>
+            </a>
+
+            <a href="team_generator/team_generator.html" class="app-card team-generator">
+                <div class="app-card__top">
+                    <div class="app-icon">👥</div>
+                    <span class="app-tag">Utility</span>
+                </div>
+                <div>
+                    <div class="app-title">Team Generator</div>
+                    <div class="app-description">Genera squadre bilanciate in modo automatico.</div>
+                </div>
+                <div class="app-card__footer">
+                    <span class="pill pill--indigo">2–20 giocatori</span>
+                </div>
+            </a>
+
+            <a href="itinerario_cracovia/index.html" class="app-card cracovia">
+                <div class="app-card__top">
+                    <div class="app-icon">❄️</div>
+                    <span class="app-tag">Itinerario</span>
+                </div>
+                <div>
+                    <div class="app-title">Itinerario Cracovia</div>
+                    <div class="app-description">Hallmark Dispatch · mercatini di Natale 29 nov – 1 dic · convertitore PLN/EUR.</div>
+                </div>
+                <div class="app-card__footer">
+                    <span class="pill pill--indigo">3 giorni</span>
+                    <span class="pill">Nov–Dic 2026</span>
+                </div>
+            </a>
+
+            <!-- Placeholder per future applicazioni -->
+            <div class="app-card placeholder">
+                <div class="app-card__top">
+                    <div class="app-icon">➕</div>
+                    <span class="app-tag">In arrivo</span>
+                </div>
+                <div>
+                    <div class="app-title">Prossimamente</div>
+                    <div class="app-description">Nuove utility in arrivo. Slot riservato per la prossima app.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer>
-        <p>&copy; 2026 Pagina di applicazioni di Utilità di Michael</p>
+        <span>&copy; 2026 · Pagina di applicazioni di utilità di Michael</span>
+        <span><a href="Commands/COMANDI.md">Comandi</a> · <a href="https://github.com/MichaelMoro/MichaelUtilities" target="_blank" rel="noopener">GitHub</a></span>
     </footer>
 </body>
 </html>
