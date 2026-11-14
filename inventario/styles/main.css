@@ -60,10 +60,12 @@ body {
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
+  display: flex; flex-direction: column;
   -webkit-font-smoothing: antialiased;
   font-size: 15px;
   line-height: 1.5;
 }
+main { flex: 1; }
 
 .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
 
@@ -115,6 +117,9 @@ body {
 }
 /* Tasti header: bordo pill */
 .app-header .btn--ghost { border-radius: var(--r-pill); }
+/* Logout: icona-only, discreta */
+.btn--logout { width: 32px; height: 32px; padding: 0; justify-content: center; border-radius: var(--r-pill); }
+.btn--logout:hover { color: var(--red); border-color: var(--red-soft); background: var(--red-pale); }
 .btn--primary {
   padding: 9px 18px;
   background: var(--green); color: #fff; border-color: var(--green);
@@ -300,8 +305,16 @@ body {
   background: var(--surface);
   font-size: 0.7rem; color: var(--ink-4); font-weight: 600;
   letter-spacing: 0.01em;
-  position: sticky; bottom: 0; z-index: 10;
+  margin-top: auto; /* spinge in fondo se il contenuto è poco */
 }
+.app-footer .btn--logout-footer {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: 1px solid var(--border); border-radius: var(--r-pill);
+  padding: 5px 10px; cursor: pointer; font-family: inherit;
+  font-size: 0.7rem; font-weight: 700; color: var(--ink-4); transition: all .15s;
+}
+.app-footer .btn--logout-footer:hover { color: var(--red); border-color: var(--red-soft); background: var(--red-pale); }
+.app-footer .btn--logout-footer svg { width: 11px; height: 11px; }
 
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 600px) {

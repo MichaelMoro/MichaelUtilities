@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Accedi — Inventario di Casa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #F0F5F7;
+      --surface:   #FFFFFF;
+      --border:    #D3DCDF;
+      --border-mid:#B8C5C9;
+      --ink:       #162623;
+      --ink-2:     #2B3E3C;
+      --ink-3:     #577877;
+      --ink-4:     #8FAAAA;
+      --green:     #295255;
+      --green-mid: #3A7073;
+      --green-pale:#E8F2F3;
+      --green-soft:#C2D8D9;
+      --red:       #B54A2A;
+      --red-pale:  #FDF4F1;
+      --shadow-xl: 0 20px 48px rgba(22,38,35,0.13), 0 4px 12px rgba(22,38,35,0.07);
+      --r-sm: 8px; --r: 14px; --r-lg: 18px; --r-pill: 999px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    button { padding: 0; background: none; border: none; font-family: inherit; }
+    body {
+      font-family: 'Nunito Sans', system-ui, sans-serif;
+      background: var(--bg); color: var(--ink);
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px 20px; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Card login ─────────────────────────────── */
+    .login-card {
+      width: 100%; max-width: 380px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-lg); box-shadow: var(--shadow-xl);
+      padding: 36px 32px 32px;
+    }
+
+    /* Logo + titolo */
+    .login-logo {
+      width: 48px; height: 48px; border-radius: var(--r);
+      background: var(--green); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .login-logo svg { width: 22px; height: 22px; }
+    .login-title {
+      text-align: center; font-size: 1.1rem; font-weight: 800;
+      color: var(--ink); letter-spacing: -0.025em; margin-bottom: 4px;
+    }
+    .login-sub {
+      text-align: center; font-size: 0.8125rem; color: var(--ink-3);
+      margin-bottom: 28px; line-height: 1.5;
+    }
+
+    /* Form */
+    .form-label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      color: var(--ink-3); margin-bottom: 6px; letter-spacing: 0.01em;
+    }
+    .form-input {
+      width: 100%; padding: 10px 12px;
+      border: 1.5px solid var(--border); border-radius: var(--r-sm);
+      background: var(--surface); font-size: 0.9375rem; font-family: inherit;
+      color: var(--ink); outline: none; transition: border-color .16s, box-shadow .16s;
+    }
+    .form-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(41,82,85,0.12);
+    }
+    .form-input.error { border-color: var(--red); }
+
+    .btn-send {
+      display: flex; width: 100%; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 16px; padding: 12px 20px;
+      background: var(--green); color: #fff;
+      border-radius: var(--r-sm); font-size: 0.9375rem; font-weight: 800;
+      cursor: pointer; font-family: inherit; transition: all .16s ease;
+      border: none; letter-spacing: -0.01em;
+    }
+    .btn-send:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .btn-send:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-send svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ── Stato: link inviato ────────────────────── */
+    .sent-state { display: none; text-align: center; }
+    .sent-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--green-pale); border: 2px solid var(--green-soft);
+      color: var(--green); display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .sent-icon svg { width: 26px; height: 26px; }
+    .sent-title { font-size: 1rem; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+    .sent-sub { font-size: 0.8125rem; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; }
+    .sent-email {
+      display: inline-block; background: var(--green-pale); color: var(--green);
+      border-radius: var(--r-pill); padding: 4px 12px;
+      font-size: 0.8125rem; font-weight: 700; margin-bottom: 20px;
+    }
+    .btn-resend {
+      background: none; border: 1.5px solid var(--border-mid); border-radius: var(--r-sm);
+      padding: 8px 16px; font-size: 0.8125rem; font-weight: 700; color: var(--ink-3);
+      cursor: pointer; font-family: inherit; transition: all .15s;
+    }
+    .btn-resend:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── Error ─────────────────────────────────── */
+    .error-msg {
+      display: none; margin-top: 10px; padding: 9px 12px;
+      background: var(--red-pale); border-radius: var(--r-sm);
+      font-size: 0.8125rem; color: var(--red); font-weight: 600;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+      border-radius: 50%; animation: spin .6s linear infinite; display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer */
+    .login-footer { margin-top: 20px; text-align: center; font-size: 0.7rem; color: var(--ink-4); }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+
+    <!-- ── Form state ─────────────────────────── -->
+    <div id="form-state">
+      <div class="login-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <div class="login-title">Inventario di Casa</div>
+      <div class="login-sub">Inserisci la tua email. Ti mandiamo un link per accedere.</div>
+
+      <label class="form-label" for="email-input">Email</label>
+      <input type="email" id="email-input" class="form-input"
+             placeholder="nome@esempio.it" autocomplete="email" inputmode="email">
+
+      <div class="error-msg" id="error-msg"></div>
+
+      <button class="btn-send" id="btn-send">
+        <span id="btn-label">Invia link di accesso</span>
+        <div class="spinner" id="spinner"></div>
+        <svg id="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- ── Sent state ──────────────────────────── -->
+    <div class="sent-state" id="sent-state">
+      <div class="sent-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      <div class="sent-title">Controlla la tua email</div>
+      <div class="sent-sub">Abbiamo inviato un link di accesso a:</div>
+      <div class="sent-email" id="sent-email-display"></div>
+      <div class="sent-sub">Clicca il link nell'email per accedere. Scade dopo 1 ora.</div>
+      <button class="btn-resend" id="btn-resend">Non hai ricevuto nulla? Reinvia</button>
+    </div>
+
+  </div>
+
+  <div class="login-footer">Inventario di Casa · v2.1.0</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script>
+    const emailInput  = document.getElementById('email-input');
+    const btnSend     = document.getElementById('btn-send');
+    const btnLabel    = document.getElementById('btn-label');
+    const btnIcon     = document.getElementById('btn-icon');
+    const spinnerEl   = document.getElementById('spinner');
+    const errorMsg    = document.getElementById('error-msg');
+    const formState   = document.getElementById('form-state');
+    const sentState   = document.getElementById('sent-state');
+    const sentDisplay = document.getElementById('sent-email-display');
+    const btnResend   = document.getElementById('btn-resend');
+
+    // Se già autenticato → redirect diretto
+    sb.auth.getSession().then(({ data }) => {
+      if (data?.session) window.location.replace('index.html');
+    });
+
+    // Listener auth: quando il magic link viene cliccato, Supabase
+    // reindirizza a questa pagina con token nell'URL → cattura e redirect
+    sb.auth.onAuthStateChange((event, session) => {
+      if (session) window.location.replace('index.html');
+    });
+
+    async function sendMagicLink(email) {
+      setLoading(true);
+      hideError();
+
+      const { error } = await sb.auth.signInWithOtp({
+        email,
+        options: {
+          // Redirect dopo il click del link — aggiorna con il tuo URL di produzione
+          emailRedirectTo: window.location.origin + window.location.pathname.replace('login.html', 'index.html'),
+          shouldCreateUser: false, // non crea nuovi account: solo email pre-autorizzate
+        },
+      });
+
+      setLoading(false);
+
+      if (error) {
+        // "Email not found" = email non in whitelist
+        const msg = error.message.includes('User not found') || error.message.includes('not found')
+          ? 'Email non autorizzata. Contatta l\'amministratore.'
+          : error.message;
+        showError(msg);
+        return;
+      }
+
+      showSentState(email);
+    }
+
+    function setLoading(on) {
+      btnSend.disabled = on;
+      spinnerEl.style.display = on ? 'block' : 'none';
+      btnIcon.style.display   = on ? 'none'  : 'block';
+      btnLabel.textContent    = on ? 'Invio in corso…' : 'Invia link di accesso';
+    }
+
+    function showError(msg) {
+      errorMsg.textContent   = msg;
+      errorMsg.style.display = 'block';
+    }
+    function hideError() { errorMsg.style.display = 'none'; }
+
+    function showSentState(email) {
+      formState.style.display  = 'none';
+      sentState.style.display  = 'block';
+      sentDisplay.textContent  = email;
+    }
+
+    btnSend.addEventListener('click', () => {
+      const email = emailInput.value.trim();
+      if (!email || !email.includes('@')) {
+        emailInput.classList.add('error');
+        emailInput.focus();
+        return;
+      }
+      emailInput.classList.remove('error');
+      sendMagicLink(email);
+    });
+
+    emailInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') btnSend.click();
+    });
+
+    btnResend.addEventListener('click', () => {
+      sentState.style.display = 'none';
+      formState.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
