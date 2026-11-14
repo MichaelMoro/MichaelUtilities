@@ -176,7 +176,7 @@
         }
         .grid .app-card:nth-child(1) { grid-column: span 2; }  /* Fuerteventura large */
         .grid .app-card:nth-child(3) { grid-column: span 1; }  /* Cracovia */
-        .grid .app-card:nth-child(4) { grid-column: span 3; }  /* placeholder full width */
+        .grid .app-card:nth-child(4) { grid-column: span 3; }  /* inventario full width */
 
         .app-card {
             position: relative;
@@ -278,6 +278,7 @@
         .app-card.cracovia .app-icon { background: linear-gradient(135deg, #E8F1FF, #B8D9FF); }
         .app-card.team-generator .app-icon { background: linear-gradient(135deg, #DDEBFF, #BBD5FF); }
         .app-card.placeholder .app-icon { background: var(--surface-2); }
+        .app-card.inventario .app-icon { background: linear-gradient(135deg, #E0F2FE, #BAE6FD); }
 
         .app-card.placeholder {
             border: 1px dashed var(--border-strong);
@@ -400,17 +401,22 @@
                 </div>
             </a>
 
-            <!-- Placeholder per future applicazioni -->
-            <div class="app-card placeholder">
+            <!-- Inventario di Casa -->
+            <a href="inventario/index.html" class="app-card inventario">
                 <div class="app-card__top">
-                    <div class="app-icon">➕</div>
-                    <span class="app-tag">In arrivo</span>
+                    <div class="app-icon">🏠</div>
+                    <span class="app-tag">Utility</span>
                 </div>
                 <div>
-                    <div class="app-title">Prossimamente</div>
-                    <div class="app-description">Nuove utility in arrivo. Slot riservato per la prossima app.</div>
+                    <div class="app-title">Inventario di Casa</div>
+                    <div class="app-description">Gestisci le scorte di casa, traccia i prezzi e consulta lo storico degli acquisti direttamente dal supermercato.</div>
                 </div>
-            </div>
+                <div class="app-card__footer">
+                    <span class="pill pill--indigo">Inventario</span>
+                    <span class="pill pill--emerald">Prezzi</span>
+                    <span class="pill">Scorte</span>
+                </div>
+            </a>
         </section>
     </main>
 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista della Spesa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/shopping.css">
+</head>
+<body>
+
+  <!-- ══ HEADER ═══════════════════════════════════════════════ -->
+  <header class="app-header">
+    <div class="app-header__inner">
+      <div class="app-title">
+
+        Lista della Spesa
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn--fab btn--fab-nav" title="Torna all'inventario">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ══ SCOREBOARD ════════════════════════════════════════════ -->
+    <div class="shop-scoreboard">
+      <div class="shop-tile">
+        <div class="shop-tile__value num" id="stat-shop-total">—</div>
+        <div class="shop-tile__label">da comprare</div>
+      </div>
+      <div class="shop-tile">
+        <div class="shop-tile__value num" id="stat-shop-checked">—</div>
+        <div class="shop-tile__label">nel carrello</div>
+      </div>
+    </div>
+
+    <!-- ══ CONTENT ════════════════════════════════════════════════ -->
+    <div id="shop-content">
+      <div class="loading-state"><div class="spinner"></div> Caricamento lista…</div>
+    </div>
+
+
+
+  </main>
+
+  <!-- ══ CONFIRM BAR (bottom sticky) ══════════════════════════ -->
+  <div class="confirm-bar" id="confirm-bar">
+    <span class="confirm-bar__label" id="confirm-bar-label">0 oggetti nel carrello</span>
+    <button class="confirm-bar__btn confirm-bar__btn--cancel" id="confirm-bar-cancel">Deseleziona</button>
+    <button class="confirm-bar__btn confirm-bar__btn--ok" id="confirm-bar-ok">Fatto ✓</button>
+  </div>
+
+  <!-- ══ MODAL: Conferma ════════════════════════════════════════ -->
+  <div class="modal-overlay" id="confirm-modal-overlay">
+    <div class="modal" style="max-width:380px">
+      <div class="modal-header">
+        <span class="modal-title" id="confirm-title">Conferma</span>
+        <button class="modal-close" id="confirm-modal-close">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message" style="font-size:0.9rem;color:var(--ink-2);line-height:1.6"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--ghost" id="confirm-cancel">Annulla</button>
+        <button class="btn btn--primary" id="confirm-ok">Conferma</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TOAST ══════════════════════════════════════════════════ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ══ SCRIPTS ════════════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/shopping.js"></script>
+</body>
+</html>

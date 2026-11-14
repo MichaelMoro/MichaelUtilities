@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario di Casa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/inventory.css">
+</head>
+<body>
+
+  <!-- ══ HEADER ═══════════════════════════════════════════════ -->
+  <header class="app-header">
+    <div class="app-header__inner">
+      <div class="app-title">
+
+        Inventario di Casa
+      </div>
+      <div class="header-actions">
+        <!-- Lista spesa -->
+        <button class="btn btn--fab btn--fab-nav" id="btn-shopping-list" title="Lista della spesa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+        </button>
+        <!-- Aggiungi oggetto -->
+        <button class="btn btn--fab" id="btn-add-item" title="Aggiungi oggetto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ══ SCOREBOARD ════════════════════════════════════════════ -->
+    <div class="scoreboard">
+      <div class="score-tile score-tile--total">
+        <div class="score-tile__value num" id="stat-total">—</div>
+        <div class="score-tile__label">oggetti in inventario</div>
+      </div>
+      <!-- Cliccabile: filtra scorte basse -->
+      <div class="score-tile score-tile--alert clickable" id="stat-low-tile" title="Clicca per filtrare le scorte basse">
+        <div class="score-tile__value num" id="stat-low">—</div>
+        <div class="score-tile__label">scorte basse</div>
+      </div>
+    </div>
+
+    <!-- Mini stats secondarie -->
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat__label">Categorie</div>
+        <div class="mini-stat__value num" id="stat-cats">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat__label">Ultimo acquisto</div>
+        <div class="mini-stat__value num" id="stat-last">—</div>
+      </div>
+    </div>
+
+    <!-- ══ TOOLBAR ════════════════════════════════════════════════ -->
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </span>
+        <input type="text" class="search-input" id="search-input" placeholder="Cerca oggetti…" autocomplete="off">
+      </div>
+      <select class="select-filter" id="category-filter">
+        <option value="">Tutte le categorie</option>
+      </select>
+    </div>
+
+    <!-- ══ PILLS ══════════════════════════════════════════════════ -->
+    <div class="pills-wrap" id="pills-wrap">
+      <button class="pill-filter active" data-id="">Tutte</button>
+    </div>
+
+    <!-- ══ CONTENT ════════════════════════════════════════════════ -->
+    <div id="main-content">
+      <div class="loading-state"><div class="spinner"></div> Caricamento…</div>
+    </div>
+
+
+
+  </main>
+
+  <!-- ══ MODAL: Aggiungi / Modifica oggetto ════════════════════ -->
+  <div class="modal-overlay" id="item-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">Aggiungi oggetto</span>
+        <button class="modal-close" id="modal-close">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <form id="item-form" autocomplete="off">
+          <input type="hidden" id="form-item-id">
+
+          <div class="form-group">
+            <label class="form-label" for="form-nome">Nome <span class="req">*</span></label>
+            <input type="text" class="form-input" id="form-nome" placeholder="es. Detersivo Dash, Olio EVO…">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-categoria">Categoria <span class="req">*</span></label>
+            <div class="cat-inline-row">
+              <select class="form-select" id="form-categoria"></select>
+              <button type="button" class="btn--new-cat" id="btn-new-cat-toggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Nuova
+              </button>
+            </div>
+            <!-- Pannello crea categoria inline -->
+            <div class="new-cat-panel" id="new-cat-panel">
+              <div class="form-row" style="margin-bottom:10px">
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label" for="new-cat-nome">Nome categoria <span class="req">*</span></label>
+                  <input type="text" class="form-input" id="new-cat-nome" placeholder="es. Farmacia…">
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Icona</label>
+                  <div class="icon-picker" id="icon-picker">
+                    <span class="icon-opt selected" data-icon="📦">📦</span>
+                    <span class="icon-opt" data-icon="🍎">🍎</span>
+                    <span class="icon-opt" data-icon="🧹">🧹</span>
+                    <span class="icon-opt" data-icon="🧺">🧺</span>
+                    <span class="icon-opt" data-icon="🔧">🔧</span>
+                    <span class="icon-opt" data-icon="✏️">✏️</span>
+                    <span class="icon-opt" data-icon="💊">💊</span>
+                    <span class="icon-opt" data-icon="🐾">🐾</span>
+                    <span class="icon-opt" data-icon="🍷">🍷</span>
+                    <span class="icon-opt" data-icon="🧴">🧴</span>
+                    <span class="icon-opt" data-icon="🛠️">🛠️</span>
+                    <span class="icon-opt" data-icon="📚">📚</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Colore categoria</label>
+                <div class="color-picker" id="color-picker">
+                  <span class="color-opt selected" data-color="#2D6A4F" style="background:#2D6A4F"></span>
+                  <span class="color-opt" data-color="#2563EB" style="background:#2563EB"></span>
+                  <span class="color-opt" data-color="#7C3AED" style="background:#7C3AED"></span>
+                  <span class="color-opt" data-color="#C1440E" style="background:#C1440E"></span>
+                  <span class="color-opt" data-color="#B45309" style="background:#B45309"></span>
+                  <span class="color-opt" data-color="#0E7490" style="background:#0E7490"></span>
+                  <span class="color-opt" data-color="#BE185D" style="background:#BE185D"></span>
+                  <span class="color-opt" data-color="#64748B" style="background:#64748B"></span>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+                <button type="button" class="btn btn--ghost btn--sm" id="btn-new-cat-cancel">Annulla</button>
+                <button type="button" class="btn btn--primary btn--sm" id="btn-new-cat-save">Crea categoria</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="form-posizione">Posizione in casa</label>
+              <input type="text" class="form-input" id="form-posizione" placeholder="es. Bagno, Cucina…">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-unita">Unità</label>
+              <select class="form-select" id="form-unita">
+                <option value="pz">pz (pezzi)</option>
+                <option value="kg">kg</option>
+                <option value="g">g (grammi)</option>
+                <option value="L">L (litri)</option>
+                <option value="ml">ml</option>
+                <option value="m">m (metri)</option>
+                <option value="fogli">fogli</option>
+                <option value="conf">conf</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="form-quantita">Quantità attuale</label>
+              <input type="number" class="form-input" id="form-quantita" min="0" step="0.1" value="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-soglia">Soglia minima (alert)</label>
+              <input type="number" class="form-input" id="form-soglia" min="0" step="0.1" value="1">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-note">Note</label>
+            <textarea class="form-textarea" id="form-note" placeholder="Note aggiuntive…"></textarea>
+          </div>
+
+          <div class="form-divider">Acquisto (opzionale)</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="form-prezzo">Prezzo (€)</label>
+              <input type="number" class="form-input" id="form-prezzo" min="0" step="0.01" placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-negozio">Negozio</label>
+              <input type="text" class="form-input" id="form-negozio" placeholder="es. Esselunga, Lidl…">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="form-data">Data acquisto</label>
+              <input type="date" class="form-input" id="form-data">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-nota-acquisto">Nota acquisto</label>
+              <input type="text" class="form-input" id="form-nota-acquisto" placeholder="es. in offerta…">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--ghost" id="modal-cancel">Annulla</button>
+        <button class="btn btn--primary" id="modal-save">Salva oggetto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DRAWER: Dettaglio oggetto ══════════════════════════════ -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div class="drawer-header__top">
+        <div>
+          <div class="drawer-title" id="drawer-name"></div>
+          <div class="drawer-subtitle" id="drawer-subtitle"></div>
+        </div>
+        <div class="drawer-actions">
+          <button class="btn btn--ghost btn--sm" id="drawer-edit">Modifica</button>
+          <button class="btn btn--danger btn--sm" id="drawer-delete">Elimina</button>
+          <button class="modal-close" id="drawer-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="detail">Dettagli</button>
+        <button class="tab-btn" data-tab="prices">Storico Prezzi</button>
+      </div>
+    </div>
+    <div class="drawer-body">
+      <div class="tab-panel active" id="tab-detail">
+        <div class="detail-section">
+          <div class="detail-field">
+            <div class="detail-field__label">Quantità</div>
+            <div class="qty-control">
+              <button class="qty-btn" id="qty-minus">&#8722;</button>
+              <div class="qty-display num" id="qty-display">—</div>
+              <span class="qty-unit" id="qty-unit"></span>
+              <button class="qty-btn" id="qty-plus">+</button>
+            </div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-field__label">Soglia minima</div>
+            <div class="detail-field__value" id="detail-soglia">—</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-field__label">Posizione in casa</div>
+            <div id="detail-posizione"></div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-field__label">Note</div>
+            <div id="detail-note"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-prices">
+        <div class="price-summary" id="price-summary" style="display:none"></div>
+        <div class="price-history" id="price-history">
+          <div class="loading-state"><div class="spinner"></div></div>
+        </div>
+        <div style="padding: 0 22px 14px;">
+          <button class="btn btn--ghost btn--sm" id="drawer-add-price">+ Aggiungi acquisto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: Aggiungi acquisto ════════════════════════════════ -->
+  <div class="modal-overlay" id="price-modal-overlay">
+    <div class="modal" style="max-width:420px">
+      <div class="modal-header">
+        <span class="modal-title">Aggiungi acquisto</span>
+        <button class="modal-close" id="price-modal-close">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <form id="price-form" autocomplete="off">
+          <input type="hidden" id="price-form-item-id">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="pf-prezzo">Prezzo (€) <span class="req">*</span></label>
+              <input type="number" class="form-input" id="pf-prezzo" min="0" step="0.01" placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pf-negozio">Negozio</label>
+              <input type="text" class="form-input" id="pf-negozio" placeholder="es. Esselunga…">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="pf-data">Data acquisto</label>
+              <input type="date" class="form-input" id="pf-data">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pf-note">Nota</label>
+              <input type="text" class="form-input" id="pf-note" placeholder="es. in offerta…">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--ghost" id="price-modal-cancel">Annulla</button>
+        <button class="btn btn--primary" id="price-modal-save">Salva acquisto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: Conferma eliminazione ════════════════════════════ -->
+  <div class="modal-overlay" id="confirm-modal-overlay">
+    <div class="modal" style="max-width:380px">
+      <div class="modal-header">
+        <span class="modal-title" id="confirm-title">Conferma</span>
+        <button class="modal-close" id="confirm-modal-close">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message" style="font-size:0.9rem;color:var(--ink-2);line-height:1.6"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--ghost" id="confirm-cancel">Annulla</button>
+        <button class="btn btn--primary" id="confirm-ok">Elimina</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TOAST ══════════════════════════════════════════════════ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ══ SCRIPTS — ordine di dipendenza ════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/modals.js"></script>
+  <script>
+    // Avvio
+    initNewCatPanel();
+    loadAll();
+  </script>
+  <script src="js/events.js"></script>
+</body>
+</html>
